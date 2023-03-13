@@ -80,8 +80,9 @@ namespace CHAI
     // Convert FEN string to integral board data
     void Parse(std::string FenString, int *PieceArr, int *ColorArr)
     {
+      std::cout << "Parsing...";
       // Loop through string
-      int CurrentSquare;
+      int CurrentSquare = 0;
       for (int i = 0; i < FenString.length();)
       {
         // If it is a piece
@@ -95,7 +96,7 @@ namespace CHAI
         else if (isdigit(FenString[i]))
         {
           // Add the digit to the current square
-          CurrentSquare = CurrentSquare + int(FenString[i] - '0');
+          CurrentSquare += int(FenString[i] - '0');
           i++;
         }
         else if (FenString[i] == '/')

@@ -6,12 +6,11 @@ namespace CHAI
 {
     class Board
     {
-        // Definitions
 
     public:
-    //For testing
+        // For testing
         Board()
-        {   
+        {
             Side = White;
             EnemySide = (Side == White) ? Black : White;
         };
@@ -58,24 +57,31 @@ namespace CHAI
             {-11, -10, -9, -1, 1, 9, 10, 11},   // Queen
             {-11, -10, -9, -1, 1, 9, 10, 11}    // King
         };
+        // Bitboard of attakced squares
+        U64 AttackedSquares[64] = {};
+
+        // Functions
+
         // Move generation using the mailbox method
-        void MoveGen()
+        void MoveGen(int TargetSide)
         {
             // Loop through all squares
             for (int Square = 0; Square < 64;)
             {
                 // Check if its not the opponents piece
-                if (Color[Square] == Side)
+                if (Color[Square] == TargetSide)
                 {
-                    GetMoves(Piece[Square], Square);
+                    GetMoves(Piece[Square], Square, TargetSide);
                 };
                 Square++;
             };
         };
-        // Get all possible legal moves for a piece
-        void GetMoves(int Piece, int Position)
+        // Change all occurences of Side to Whose
+        //  Get all possible legal moves for a piece
+        void GetMoves(int Piece, int Position, int Side)
         {
-            // Target square of move
+            // Side
+            //  Target square of move
             int Move;
             // Ray length
             int Range = 1;
@@ -97,13 +103,13 @@ namespace CHAI
                                 // Capture
                                 if (Color[Move] == EnemySide)
                                 {
-                                    std::cout << "Possible capture at Square " << Move << std::endl;
+                                    std::cout << "Possible capture at Square " << Move << " for " << Position << std::endl;
                                     MoveCount++;
                                 }
                                 // Move
                                 else
                                 {
-                                    std::cout << "Possible move to Square " << Move << std::endl;
+                                    std::cout << "Possible move to Square " << Move << " for " << Position << std::endl;
                                     MoveCount++;
                                 }
                             }
@@ -114,7 +120,7 @@ namespace CHAI
                 else if (Piece == Pawn)
                 {
                     // Direction the pawn is moving
-                    int Dir = (Side == White) ? -1 :1;
+                    int Dir = (Side == White) ? -1 : 1;
                     int DoubleFile = (Side == White) ? 6 : 1;
                     // Check validity of attack to the right
                     if (Mailbox[Mailbox64[Position] + 9 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 9 * Dir]] == EnemySide)
@@ -131,13 +137,13 @@ namespace CHAI
                     // Move forward
                     if (Mailbox[Mailbox64[Position] + 10 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 10 * Dir]] == Empty)
                     {
-                        std::cout << "Possible move to Square " << Mailbox[Mailbox64[Position] + 10] << " for " << Position << std::endl;
+                        std::cout << "Possible move to Square " << Mailbox[Mailbox64[Position] + 10 * Dir] << " for " << Position << std::endl;
                         MoveCount++;
                     }
-                    //Double Move
-                    if (Row(Position) == DoubleFile && Color[Mailbox[Mailbox64[Position] + 20]] == Empty && Mailbox[Mailbox64[Position] + 20] != -1 && Color[Mailbox[Mailbox64[Position] + 10]] == Empty)
+                    // Double Move
+                    if (Row(Position) == DoubleFile && Color[Mailbox[Mailbox64[Position] + 20 * Dir]] == Empty && Mailbox[Mailbox64[Position] + 20 * Dir] != -1)
                     {
-                        std::cout << "Possible move to Square " << Mailbox[Mailbox64[Position] + 20] << " for " << Position << std::endl;
+                        std::cout << "Possible move to Square " << Mailbox[Mailbox64[Position] + 20 * Dir] << " for " << Position << std::endl;
                         MoveCount++;
                     }
                 };
@@ -192,6 +198,46 @@ namespace CHAI
                     }
                 };
             }
+        };
+        void ConvertToAlgebric(int Piece, int Position, int Move)
+        {
+            std::string Algebric = "";
+            // Piece
+            switch (Piece)
+            {
+            case Pawn:
+                Algebric += "P";
+                break;
+            case Knight:
+                Algebric += "N";
+                break;
+            case Bishop:
+                Algebric += "B";
+                break;
+            case Rook:
+                Algebric += "R";
+                break;
+            case Queen:
+                Algebric += "Q";
+                break;
+            case King:
+                Algebric += "K";
+                break;
+            default:
+                break;
+            }
+            // Position
+            Algebric += File(Position);
+            Algebric += Row(Position);
+            // Move
+            Algebric += File(Move);
+            Algebric += Row(Move);
+            // Promotion
+            if (Piece == Pawn && (Row(Move) == 1 || Row(Move) == 8))
+            {
+                Algebric += "Q";
+            }
+            std::cout << Algebric << std::endl;
         };
     };
 };
