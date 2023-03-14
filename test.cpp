@@ -16,5 +16,6 @@ int main()
     std::cout << ChessBoard.EnemySide << std::endl;
     ChessBoard.MoveGen(White);
     std::cout << ChessBoard.MoveCount << " Possible Moves found\n";
+    std::cout << ChessBoard.ToAlgebricSquare(0);
     return 0;
 };

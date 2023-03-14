@@ -1,5 +1,7 @@
 #include <iostream>
 #include "defs.h"
+#include "fen.h"
+#include <string>
 
 // Main namespace of the CHAI chess engine
 namespace CHAI
@@ -199,45 +201,82 @@ namespace CHAI
                 };
             }
         };
-        void ConvertToAlgebric(int Piece, int Position, int Move)
+
+        // Convert a move to algebric notation
+        std::string ToAlgebricSquare(int Square){
+            std::string output;
+            switch (File(Square))
+            {
+                case 0:
+                output += "a";
+                case 1:
+                output += "b";
+                case 2:
+                    output += "c";
+                case 3:
+                    output += "d";
+                case 4:
+                    output += "e";
+                case 5:
+                    output += "f";
+                case 6:
+                    output += "g";
+                case 7:
+                    output += "h";
+                };
+                output += std::to_string(Row(Square) + 1);
+                return output;
+        }
+        char PieceToChar(int Piece, int Color)
         {
-            std::string Algebric = "";
-            // Piece
-            switch (Piece)
+                char PieceChar;
+                switch (Piece)
+                {
+                case Pawn:
+                    PieceChar = 'P';
+                    break;
+                case Knight:
+                    PieceChar = 'N';
+                    break;
+                case Bishop:
+                    PieceChar = 'B';
+                    break;
+                case Rook:
+                    PieceChar = 'R';
+                    break;
+                case Queen:
+                    PieceChar = 'Q';
+                    break;
+                case King:
+                    PieceChar = 'K';
+                    break;
+                default:
+                    PieceChar = ' ';
+                    break;
+                };
+                if (Color == White)
+                {
+                    PieceChar = toupper(PieceChar);
+                }
+                else if (Color == Black)
+                {
+                    PieceChar = tolower(PieceChar);
+                }
+                return PieceChar;
+        }
+        void ConvertToAlgebric(int Color, int Piece, int Position, int *Move)
+        {
+            std::string AlgebricMove = "";
+            // Move is a capture
+            if(Piece != Pawn){
+            if (Color[Move] == EnemySide)
             {
-            case Pawn:
-                Algebric += "P";
-                break;
-            case Knight:
-                Algebric += "N";
-                break;
-            case Bishop:
-                Algebric += "B";
-                break;
-            case Rook:
-                Algebric += "R";
-                break;
-            case Queen:
-                Algebric += "Q";
-                break;
-            case King:
-                Algebric += "K";
-                break;
-            default:
-                break;
-            }
-            // Position
-            Algebric += File(Position);
-            Algebric += Row(Position);
-            // Move
-            Algebric += File(Move);
-            Algebric += Row(Move);
-            // Promotion
-            if (Piece == Pawn && (Row(Move) == 1 || Row(Move) == 8))
-            {
-                Algebric += "Q";
-            }
-            std::cout << Algebric << std::endl;
+                if (Color[Move] == Pawn)
+                {   
+                    AlgebricMove += PieceToChar(Piece, Color) + std::to_string(Position) + "x";
+                };
+            };
+            };
         };
     };
 };
