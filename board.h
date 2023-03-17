@@ -105,13 +105,13 @@ namespace CHAI
                                 // Capture
                                 if (Color[Move] == EnemySide)
                                 {
-                                    std::cout << "Possible capture at Square " << Move << " for " << Position << std::endl;
+                                    std::cout << ConvertToAlgebraic(Piece, Position, Move) << std::endl;
                                     MoveCount++;
                                 }
                                 // Move
                                 else
                                 {
-                                    std::cout << "Possible move to Square " << Move << " for " << Position << std::endl;
+                                    std::cout << ConvertToAlgebraic(Piece, Position, Move) << std::endl;
                                     MoveCount++;
                                 }
                             }
@@ -127,25 +127,25 @@ namespace CHAI
                     // Check validity of attack to the right
                     if (Mailbox[Mailbox64[Position] + 9 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 9 * Dir]] == EnemySide)
                     {
-                        std::cout << "Possible capture at Square " << Mailbox[Mailbox64[Position] + 9 * Dir] << " for " << Position << std::endl;
+                        std::cout << ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 9 * Dir]) << std::endl;
                         MoveCount++;
                     }
                     // Check validity of attack to the left
                     if (Mailbox[Mailbox64[Position] + 11 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 11 * Dir]] == EnemySide)
                     {
-                        std::cout << "Possible capture at Square " << Mailbox[Mailbox64[Position] + 11 * Dir] << " for " << Position << std::endl;
+                        std::cout << ConvertToAlgebraic(Piece , Position , Mailbox[Mailbox64[Position] + 11 * Dir]) << std::endl;
                         MoveCount++;
                     }
                     // Move forward
                     if (Mailbox[Mailbox64[Position] + 10 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 10 * Dir]] == Empty)
                     {
-                        std::cout << "Possible move to Square " << Mailbox[Mailbox64[Position] + 10 * Dir] << " for " << Position << std::endl;
+                        std::cout << ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 10 * Dir]) << std::endl;
                         MoveCount++;
                     }
                     // Double Move
                     if (Row(Position) == DoubleFile && Color[Mailbox[Mailbox64[Position] + 20 * Dir]] == Empty && Mailbox[Mailbox64[Position] + 20 * Dir] != -1)
                     {
-                        std::cout << "Possible move to Square " << Mailbox[Mailbox64[Position] + 20 * Dir] << " for " << Position << std::endl;
+                        std::cout << ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 20 * Dir])<< std::endl;
                         MoveCount++;
                     }
                 };
@@ -172,14 +172,14 @@ namespace CHAI
                                 // Capture
                                 if (EnemySide == Color[Move])
                                 {
-                                    std::cout << "Possible capture at Square " << Move << " for " << Position << std::endl;
+                                    std::cout << ConvertToAlgebraic(Piece, Position, Move) << std::endl;
                                     MoveCount++;
                                     break;
                                 }
                                 // Move
                                 else
                                 {
-                                    std::cout << "Possible move to Square " << Move << " for " << Position << std::endl;
+                                    std::cout <<  ConvertToAlgebraic(Piece, Position, Move)<< std::endl;
                                     MoveCount++;
                                 }
                             }
@@ -276,19 +276,32 @@ namespace CHAI
                 }
                 return PieceChar;
         }
-        void ConvertToAlgebraic(int Color, int Piece, int Position, int *Move)
-        {
+        std::string ConvertToAlgebraic(int Piece, int Position, int Move)
+        {   
+            //Starting square (with) piece
             std::string AlgebricMove = "";
-            // Move is a capture
-            if(Piece != Pawn){
-            if (Color[Move] == EnemySide)
+            if(Piece == Pawn)
             {
-                if (Color[Move] == Pawn)
-                {   
-                    AlgebricMove += PieceToChar(Piece, Color) + std::to_string(Position) + "x";
-                };
+                AlgebricMove += ToAlgebraicSquare(Position);
+            }
+            else
+            {
+                AlgebricMove += PieceToChar(Piece, Color[Position]);
+                AlgebricMove += ToAlgebraicSquare(Position);
             };
+            //Move with capture
+            if(Color[Move] == EnemySide)
+            {
+                AlgebricMove += "x";
+                AlgebricMove += ToAlgebraicSquare(Move);
             };
+            //Move without capture
+            if(Color[Move] == Empty)
+            {
+                AlgebricMove += "-";
+                AlgebricMove += ToAlgebraicSquare(Move);
+            };
+            return AlgebricMove;
         };
     };
 };

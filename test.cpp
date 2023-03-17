@@ -4,16 +4,13 @@ int main()
 {
     using namespace CHAI;
     Board ChessBoard;
-    // Check if the code has reached here
 
     // For testing:
-    //  Pointers for Parsing
-    
+    //Start position
     FEN::Parse("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR", ChessBoard.Piece, ChessBoard.Color);
     FEN::DisplayBoard(ChessBoard.Piece, ChessBoard.Color);
     //Generate moves for white
     ChessBoard.MoveGen(White);
     std::cout << ChessBoard.MoveCount << " Possible Moves found\n";
-    std::cout << ChessBoard.ToAlgebraicSquare(0) << std:: endl;
     return 0;
 };
