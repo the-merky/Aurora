@@ -208,25 +208,37 @@ namespace CHAI
             switch (File(Square))
             {
                 case 0:
-                output += "a";
+                    output += "a";
+                    break;
                 case 1:
-                output += "b";
+                    output += "b";
+                    break;
                 case 2:
                     output += "c";
+                    break;
                 case 3:
                     output += "d";
+                    break;
                 case 4:
                     output += "e";
+                    break;
                 case 5:
                     output += "f";
+                    break;
                 case 6:
                     output += "g";
+                    break;
                 case 7:
                     output += "h";
+                    break;
+                default:
+                    output += " ";
+                    break;
                 };
                 output += std::to_string(Row(Square) + 1);
                 return output;
         }
+        // Convert a move to algebric notation
         char PieceToChar(int Piece, int Color)
         {
                 char PieceChar;

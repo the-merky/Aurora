@@ -9,13 +9,13 @@ namespace CHAI
   namespace FEN
   {
     // A function to set values
-    void Set(int *PieceArr, int *ColorArr, int Pos, int Type, int Color)
+    void Set(int PieceArr[], int ColorArr[], int Pos, int Type, int Color)
     {
       PieceArr[Pos] = Type;
       ColorArr[Pos] = Color;
     };
     // Convert FEN characters to integers
-    void PieceParse(char FenChar, int *PieceArr, int *ColorArr, int Pos)
+    void PieceParse(char FenChar, int PieceArr[], int ColorArr[], int Pos)
     {
       int Type;
       int Color;
@@ -79,7 +79,7 @@ namespace CHAI
       Set(PieceArr, ColorArr, Pos, Type, Color);
     }
     // Convert FEN string to integral board data
-    void Parse(std::string FenString, int *PieceArr, int *ColorArr)
+    void Parse(std::string FenString, int PieceArr[], int ColorArr[])
     {
       std::cout << "Parsing...";
       // Loop through string
