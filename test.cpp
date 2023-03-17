@@ -14,6 +14,6 @@ int main()
     //Generate moves for white
     ChessBoard.MoveGen(White);
     std::cout << ChessBoard.MoveCount << " Possible Moves found\n";
-    std::cout << ChessBoard.ToAlgebricSquare(0) << std:: endl;
+    std::cout << ChessBoard.ToAlgebraicSquare(0) << std:: endl;
     return 0;
 };

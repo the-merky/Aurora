@@ -202,8 +202,8 @@ namespace CHAI
             }
         };
 
-        // Convert a move to algebric notation
-        std::string ToAlgebricSquare(int Square){
+        // Convert a sqaure to algebraic notation
+        std::string ToAlgebraicSquare(int Square){
             std::string output;
             switch (File(Square))
             {
@@ -238,7 +238,7 @@ namespace CHAI
                 output += std::to_string(Row(Square) + 1);
                 return output;
         }
-        // Convert a move to algebric notation
+        // Convert a move to algebraic notation
         char PieceToChar(int Piece, int Color)
         {
                 char PieceChar;
@@ -276,7 +276,7 @@ namespace CHAI
                 }
                 return PieceChar;
         }
-        void ConvertToAlgebric(int Color, int Piece, int Position, int *Move)
+        void ConvertToAlgebraic(int Color, int Piece, int Position, int *Move)
         {
             std::string AlgebricMove = "";
             // Move is a capture
