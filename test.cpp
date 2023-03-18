@@ -11,6 +11,7 @@ int main()
     FEN::DisplayBoard(ChessBoard.Piece, ChessBoard.Color);
     //Generate moves for white
     ChessBoard.MoveGen(White);
+    //Display the moves
     std::cout << ChessBoard.MoveCount << " Possible Moves found\n";
     return 0;
 };
