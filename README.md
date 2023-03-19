@@ -1,5 +1,5 @@
 
-# CHAI v0.3
+# CHAI
 ![Logo](chai-high-resolution-logo-color-on-transparent-background.png)
 
 CHAI is a fast and powerful chess engine. It is a program based on C++ and is fully open source!
