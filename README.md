@@ -10,6 +10,11 @@ CHAI is still under development! It is by no means a functioning chess engine an
 ## Authors
 
 - Shambu Kumar [@ShambuKumar](https://www.github.com/ShambuKumar)
+
+## Currently being worked on...
+ I am currently working on finding the most efficient way to store found moves and positions. 
+## The future of CHAI
+CHAI started out as a traditional chess engine, but there may be a branch the uses machine learning to train itself (like Lc0). Most probably the traditional, stockfish-like will be the first to release, as I am more experienced in this area. 
 ## Contributing
 Contributions are always welcome!
 
