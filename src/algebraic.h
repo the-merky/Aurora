@@ -8,9 +8,8 @@ namespace CHAI
         int EnemySide;
         int *Color;
         // A function to set values
-        void SetGlobalValues(int Side, int ColorArr[])
+        void SetGlobalValues(int ColorArr[])
         {
-            EnemySide = (Side == White) ? Black : White;
             Color = ColorArr;
         }
         // Convert a sqaure to algebraic notation

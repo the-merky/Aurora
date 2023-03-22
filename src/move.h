@@ -3,6 +3,7 @@ namespace CHAI
 {
     class Move
     {
+    public:
         int From;
         int To;
         // Flags

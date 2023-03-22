@@ -1,90 +1,34 @@
+#include "position.h"
 #include <iostream>
-#include <string>
 #include "defs.h"
-#include "fen.h"
+#include "movegen-helpers.h"
 #include "algebraic.h"
-
-// Main namespace of the CHAI chess engine
 namespace CHAI
 {
-    class Board
+    namespace MoveGen
     {
-
-    public:
-        // For testing
-        Board()
-        {
-            Side = White;
-            EnemySide = (Side == White) ? Black : White;
-            Algebraic::SetGlobalValues(EnemySide, Color);
-        };
-        int MoveCount = 0;
-        // Side the computer is playing
-        int Side;
-        // Enemy Side (calculated at initialization based on the Side)
-        int EnemySide;
-        // The board represetation with to arrays for color and piece data
-        int Color[64] = {};
-        int Piece[64] = {};
-        // Data used for mailbox move generation
-        int Mailbox[120] = {
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, 0, 1, 2, 3, 4, 5, 6, 7, -1,
-            -1, 8, 9, 10, 11, 12, 13, 14, 15, -1,
-            -1, 16, 17, 18, 19, 20, 21, 22, 23, -1,
-            -1, 24, 25, 26, 27, 28, 29, 30, 31, -1,
-            -1, 32, 33, 34, 35, 36, 37, 38, 39, -1,
-            -1, 40, 41, 42, 43, 44, 45, 46, 47, -1,
-            -1, 48, 49, 50, 51, 52, 53, 54, 55, -1,
-            -1, 56, 57, 58, 59, 60, 61, 62, 63, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
-        // Corresponding array locations for the mailbox with the board squares
-        int Mailbox64[64] = {
-            21, 22, 23, 24, 25, 26, 27, 28,
-            31, 32, 33, 34, 35, 36, 37, 38,
-            41, 42, 43, 44, 45, 46, 47, 48,
-            51, 52, 53, 54, 55, 56, 57, 58,
-            61, 62, 63, 64, 65, 66, 67, 68,
-            71, 72, 73, 74, 75, 76, 77, 78,
-            81, 82, 83, 84, 85, 86, 87, 88,
-            91, 92, 93, 94, 95, 96, 97, 98};
-        // Offset data
-        bool Slide[6] = {false, false, true, true, true, false};
-
-        int Offset[6][8] = {
-            {0, 0, 0, 0, 0, 0, 0, 0},
-            {-21, -19, -12, -8, 8, 12, 19, 21}, // Knight
-            {-11, -9, 9, 11, 0, 0, 0, 0},       // Bishop
-            {-10, -1, 1, 10, 0, 0, 0, 0},       // Rook
-            {-11, -10, -9, -1, 1, 9, 10, 11},   // Queen
-            {-11, -10, -9, -1, 1, 9, 10, 11}    // King
-        };
-        // Bitboard of attakced squares
-        U64 AttackedSquares[64] = {};
-
+        int *Color;
+        int *Piece;
+        //std::vector<Move> MoveList;
+        bool BQCastlingRights;
+        bool BKCastlingRights;
+        bool WQCastlingRights;
+        bool WKCastlingRights;
         // Functions
-
-        // Move generation using the mailbox method
-        void MoveGen(int TargetSide)
+        void UpdatePosition(CHAI::Position Position)
         {
-            // Loop through all squares
-            for (int Square = 0; Square < 64;)
-            {
-                // Check if its not the opponents piece
-                if (Color[Square] == TargetSide)
-                {
-                    GetMoves(Piece[Square], Square, TargetSide);
-                };
-                Square++;
-            };
-        };
-        // Change all occurences of Side to Whose
+            Color = Position.Color;
+            Piece = Position.Piece;
+            bool BQCastlingRights = Position.BQCastlingRights;
+            bool BKCastlingRights = Position.BKCastlingRights;
+            bool WQCastlingRights = Position.WQCastlingRights;
+            bool WKCastlingRights = Position.WKCastlingRights;
+            CHAI::Algebraic::SetGlobalValues(Color);
+        }
         //  Get all possible legal moves for a piece
         void GetMoves(int Piece, int Position, int Side)
         {
-            // Side
+            int EnemySide = (Side == White) ? Black : White;
             //  Target square of move
             int Move;
             // Ray length
@@ -108,13 +52,11 @@ namespace CHAI
                                 if (Color[Move] == EnemySide)
                                 {
                                     std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Move) << std::endl;
-                                    MoveCount++;
                                 }
                                 // Move
                                 else
                                 {
                                     std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Move) << std::endl;
-                                    MoveCount++;
                                 }
                             }
                         };
@@ -130,25 +72,21 @@ namespace CHAI
                     if (Mailbox[Mailbox64[Position] + 9 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 9 * Dir]] == EnemySide)
                     {
                         std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 9 * Dir]) << std::endl;
-                        MoveCount++;
                     }
                     // Check validity of attack to the left
                     if (Mailbox[Mailbox64[Position] + 11 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 11 * Dir]] == EnemySide)
                     {
-                        std::cout << Algebraic::ConvertToAlgebraic(Piece , Position , Mailbox[Mailbox64[Position] + 11 * Dir]) << std::endl;
-                        MoveCount++;
+                        std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 11 * Dir]) << std::endl;
                     }
                     // Move forward
                     if (Mailbox[Mailbox64[Position] + 10 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 10 * Dir]] == Empty)
                     {
                         std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 10 * Dir]) << std::endl;
-                        MoveCount++;
                     }
                     // Double Move
                     if (Row(Position) == DoubleFile && Color[Mailbox[Mailbox64[Position] + 20 * Dir]] == Empty && Mailbox[Mailbox64[Position] + 20 * Dir] != -1)
                     {
-                        std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 20 * Dir])<< std::endl;
-                        MoveCount++;
+                        std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 20 * Dir]) << std::endl;
                     }
                 };
             }
@@ -175,14 +113,13 @@ namespace CHAI
                                 if (EnemySide == Color[Move])
                                 {
                                     std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Move) << std::endl;
-                                    MoveCount++;
+
                                     break;
                                 }
                                 // Move
                                 else
                                 {
-                                    std::cout <<  Algebraic::ConvertToAlgebraic(Piece, Position, Move)<< std::endl;
-                                    MoveCount++;
+                                    std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Move) << std::endl;
                                 }
                             }
                             else
@@ -201,7 +138,24 @@ namespace CHAI
                         break;
                     }
                 };
-            }
+            };
         };
+        void Generate(int TargetSide, CHAI::Position Position)
+        {
+            //Set values from Position parameter
+            UpdatePosition(Position);
+
+            // Loop through all squares
+            for (int Square = 0; Square < 64;)
+            {
+                // Check if its not the opponents piece
+                if (Color[Square] == TargetSide)
+                {
+                    GetMoves(Piece[Square], Square, TargetSide);
+                };
+                Square++;
+            };
+        };
+       
     };
 };
