@@ -7,8 +7,8 @@ namespace CHAI
 {
     namespace MoveGen
     {
-        int *Color;
-        int *Piece;
+        int (*Color)[64];
+        int (*Piece)[64];
         //std::vector<Move> MoveList;
         bool BQCastlingRights;
         bool BKCastlingRights;
@@ -17,13 +17,12 @@ namespace CHAI
         // Functions
         void UpdatePosition(CHAI::Position Position)
         {
-            Color = Position.Color;
-            Piece = Position.Piece;
+            Color = &Position.Color;
+            Piece = &Position.Piece;
             bool BQCastlingRights = Position.BQCastlingRights;
             bool BKCastlingRights = Position.BKCastlingRights;
             bool WQCastlingRights = Position.WQCastlingRights;
             bool WKCastlingRights = Position.WKCastlingRights;
-            CHAI::Algebraic::SetGlobalValues(Color);
         }
         //  Get all possible legal moves for a piece
         void GetMoves(int Piece, int Position, int Side)
@@ -46,10 +45,10 @@ namespace CHAI
                         if (Move != -1)
                         {
                             // Not moving on a square which one's one piece occupies
-                            if (Color[Move] != Side)
+                            if ((*Color)[Move] != Side)
                             {
                                 // Capture
-                                if (Color[Move] == EnemySide)
+                                if ((*Color)[Move] == EnemySide)
                                 {
                                     std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Move) << std::endl;
                                 }
@@ -69,12 +68,12 @@ namespace CHAI
                     int Dir = (Side == White) ? -1 : 1;
                     int DoubleFile = (Side == White) ? 6 : 1;
                     // Check validity of attack to the right
-                    if (Mailbox[Mailbox64[Position] + 9 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 9 * Dir]] == EnemySide)
+                    if (Mailbox[Mailbox64[Position] + 9 * Dir] != -1 && (*Color)[Mailbox[Mailbox64[Position] + 9 * Dir]] == EnemySide)
                     {
                         std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 9 * Dir]) << std::endl;
                     }
                     // Check validity of attack to the left
-                    if (Mailbox[Mailbox64[Position] + 11 * Dir] != -1 && Color[Mailbox[Mailbox64[Position] + 11 * Dir]] == EnemySide)
+                    if (Mailbox[Mailbox64[Position] + 11 * Dir] != -1 && (*Color)[Mailbox[Mailbox64[Position] + 11 * Dir]] == EnemySide)
                     {
                         std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Mailbox[Mailbox64[Position] + 11 * Dir]) << std::endl;
                     }
@@ -107,10 +106,10 @@ namespace CHAI
                         while (Move != -1)
                         {
                             // Not moving on a square which one's one piece occupies
-                            if (Color[Move] != Side)
+                            if ((*Color)[Move] != Side)
                             {
                                 // Capture
-                                if (EnemySide == Color[Move])
+                                if (EnemySide == (*Color[Move]))
                                 {
                                     std::cout << Algebraic::ConvertToAlgebraic(Piece, Position, Move) << std::endl;
 
@@ -149,9 +148,10 @@ namespace CHAI
             for (int Square = 0; Square < 64;)
             {
                 // Check if its not the opponents piece
-                if (Color[Square] == TargetSide)
+                if ((*Color)[Square] == TargetSide)
                 {
-                    GetMoves(Piece[Square], Square, TargetSide);
+                    std::cout << "Piece: " << Piece[Square] << " Square: " << Square << std::endl;
+                    GetMoves((*Piece)[Square], Square, TargetSide);
                 };
                 Square++;
             };

@@ -6,11 +6,11 @@ namespace CHAI
     {
         //Namespace for algebraic notation to CHAI-Int parsing
         int EnemySide;
-        int *Color;
+        int (*Color)[64];
         // A function to set values
-        void SetGlobalValues(int ColorArr[])
+        void SetGlobalValues(int ColorArr[64])
         {
-            Color = ColorArr;
+            Color = &ColorArr;
         }
         // Convert a sqaure to algebraic notation
         std::string ToAlgebraicSquare(int Square)
@@ -97,11 +97,11 @@ namespace CHAI
             }
             else
             {
-                AlgebricMove += PieceToChar(Piece, Color[Position]);
+                AlgebricMove += PieceToChar(Piece, (*Color)[Position]);
                 AlgebricMove += ToAlgebraicSquare(Position);
             };
             //Move with capture
-            if (Color[Move] == EnemySide)
+            if ((*Color)[Move] == EnemySide)
             {
                 AlgebricMove += "x";
                 AlgebricMove += ToAlgebraicSquare(Move);
