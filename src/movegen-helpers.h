@@ -1,4 +1,4 @@
-int Mailbox[120] = {
+int mailbox[120] = {
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, 0, 1, 2, 3, 4, 5, 6, 7, -1,
@@ -12,7 +12,7 @@ int Mailbox[120] = {
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,
     -1, -1, -1, -1, -1, -1, -1, -1, -1, -1};
 // Corresponding array locations for the mailbox with the board squares
-int Mailbox64[64] = {
+int mailbox64[64] = {
     21, 22, 23, 24, 25, 26, 27, 28,
     31, 32, 33, 34, 35, 36, 37, 38,
     41, 42, 43, 44, 45, 46, 47, 48,
@@ -22,9 +22,9 @@ int Mailbox64[64] = {
     81, 82, 83, 84, 85, 86, 87, 88,
     91, 92, 93, 94, 95, 96, 97, 98};
 // Offset data
-bool Slide[6] = {false, false, true, true, true, false};
+bool slide[6] = {false, false, true, true, true, false};
 
-int Offset[6][8] = {
+int offset[6][8] = {
     {0, 0, 0, 0, 0, 0, 0, 0},
     {-21, -19, -12, -8, 8, 12, 19, 21}, // Knight
     {-11, -9, 9, 11, 0, 0, 0, 0},       // Bishop

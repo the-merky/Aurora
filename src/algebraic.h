@@ -5,18 +5,18 @@ namespace CHAI
     namespace Algebraic
     {
         //Namespace for algebraic notation to CHAI-Int parsing
-        int EnemySide;
-        int (*Color)[64];
+        int enemySide;
+        int (*color)[64];
         // A function to set values
-        void SetGlobalValues(int ColorArr[64])
+        void setGlobalValues(int colorArr[64])
         {
-            Color = &ColorArr;
+            color = &colorArr;
         }
         // Convert a sqaure to algebraic notation
-        std::string ToAlgebraicSquare(int Square)
+        std::string toAlgebraicSquare(int square)
         {
             std::string output;
-            switch (File(Square))
+            switch (file(square))
             {
             case 0:
                 output += "a";
@@ -46,73 +46,73 @@ namespace CHAI
                 output += " ";
                 break;
             };
-            output += std::to_string(Row(Square) + 1);
+            output += std::to_string(row(square) + 1);
             return output;
         }
         // Convert a move to algebraic notation
-        char PieceToChar(int Piece, int Color)
+        char pieceToChar(int piece, int color)
         {
-            char PieceChar;
-            switch (Piece)
+            char pieceChar;
+            switch (piece)
             {
-            case Pawn:
-                PieceChar = 'P';
+            case pawn:
+                pieceChar = 'P';
                 break;
-            case Knight:
-                PieceChar = 'N';
+            case knight:
+                pieceChar = 'N';
                 break;
-            case Bishop:
-                PieceChar = 'B';
+            case bishop:
+                pieceChar = 'B';
                 break;
-            case Rook:
-                PieceChar = 'R';
+            case rook:
+                pieceChar = 'R';
                 break;
-            case Queen:
-                PieceChar = 'Q';
+            case queen:
+                pieceChar = 'Q';
                 break;
-            case King:
-                PieceChar = 'K';
+            case king:
+                pieceChar = 'K';
                 break;
             default:
-                PieceChar = ' ';
+                pieceChar = ' ';
                 break;
             };
-            if (Color == White)
+            if (color == white)
             {
-                PieceChar = toupper(PieceChar);
+                pieceChar = toupper(pieceChar);
             }
-            else if (Color == Black)
+            else if (color == black)
             {
-                PieceChar = tolower(PieceChar);
+                pieceChar = tolower(pieceChar);
             }
-            return PieceChar;
+            return pieceChar;
         }
-        std::string ConvertToAlgebraic(int Piece, int Position, int Move)
+        std::string convertToAlgebraic(int piece, int position, int move)
         {
             //Starting square (with) piece
-            std::string AlgebricMove = "";
-            if (Piece == Pawn)
+            std::string algebricMove = "";
+            if (piece == pawn)
             {
-                AlgebricMove += ToAlgebraicSquare(Position);
+                algebricMove += toAlgebraicSquare(position);
             }
             else
             {
-                AlgebricMove += PieceToChar(Piece, (*Color)[Position]);
-                AlgebricMove += ToAlgebraicSquare(Position);
+                algebricMove += pieceToChar(piece, (*color)[position]);
+                algebricMove += toAlgebraicSquare(position);
             };
             //Move with capture
-            if ((*Color)[Move] == EnemySide)
+            if ((*color)[move] == enemySide)
             {
-                AlgebricMove += "x";
-                AlgebricMove += ToAlgebraicSquare(Move);
+                algebricMove += "x";
+                algebricMove += toAlgebraicSquare(move);
             }
             //Move without capture
-            else if (Color[Move] == Empty)
+            else if (color[move] == empty)
             {
-                AlgebricMove += "-";
-                AlgebricMove += ToAlgebraicSquare(Move);
+                algebricMove += "-";
+                algebricMove += toAlgebraicSquare(move);
             };
-            return AlgebricMove;
+            return algebricMove;
         };
     }
 }

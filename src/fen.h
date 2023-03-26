@@ -9,139 +9,139 @@ namespace CHAI
   namespace FEN
   {
     // A function to set values
-    void Set(int PieceArr[], int ColorArr[], int Pos, int Type, int Color)
+    void set(int pieceArr[], int colorArr[], int pos, int type, int color)
     {
-      PieceArr[Pos] = Type;
-      ColorArr[Pos] = Color;
+      pieceArr[pos] = type;
+      colorArr[pos] = color;
     };
     // Convert FEN characters to integers
-    void PieceParse(char FenChar, int PieceArr[], int ColorArr[], int Pos)
+    void pieceParse(char fenChar, int pieceArr[], int colorArr[], int pos)
     {
-      int Type;
-      int Color;
-      if (isupper(FenChar))
+      int type;
+      int color;
+      if (isupper(fenChar))
       {
-        Color = White;
-        if (FenChar == 'P')
+        color = white;
+        if (fenChar == 'P')
         {
-          Type = Pawn;
+          type = pawn;
         }
-        else if (FenChar == 'N')
+        else if (fenChar == 'N')
         {
-          Type = Knight;
+          type = knight;
         }
-        else if (FenChar == 'B')
+        else if (fenChar == 'B')
         {
-          Type = Bishop;
+          type = bishop;
         }
-        else if (FenChar == 'R')
+        else if (fenChar == 'R')
         {
-          Type = Rook;
+          type = rook;
         }
-        else if (FenChar == 'Q')
+        else if (fenChar == 'Q')
         {
-          Type = Queen;
+          type = queen;
         }
-        else if (FenChar == 'K')
+        else if (fenChar == 'K')
         {
-          Type = King;
+          type = king;
         }
       }
       else
       {
-        Color = Black;
-        if (FenChar == 'p')
+        color = black;
+        if (fenChar == 'p')
         {
-          Type = Pawn;
+          type = pawn;
         }
-        else if (FenChar == 'n')
+        else if (fenChar == 'n')
         {
-          Type = Knight;
+          type = knight;
         }
-        else if (FenChar == 'b')
+        else if (fenChar == 'b')
         {
-          Type = Bishop;
+          type = bishop;
         }
-        else if (FenChar == 'r')
+        else if (fenChar == 'r')
         {
-          Type = Rook;
+          type = rook;
         }
 
-        else if (FenChar == 'q')
+        else if (fenChar == 'q')
         {
-          Type = Queen;
+          type = queen;
         }
-        else if (FenChar == 'k')
+        else if (fenChar == 'k')
         {
-          Type = King;
+          type = king;
         }
       };
-      Set(PieceArr, ColorArr, Pos, Type, Color);
+      set(pieceArr, colorArr, pos, type, color);
     }
     // Convert FEN string to integral board data
-    void Parse(std::string FenString, int PieceArr[], int ColorArr[])
+    void parse(std::string fenString, int pieceArr[], int colorArr[])
     {
       std::cout << "Parsing...";
       // Loop through string
-      int CurrentSquare = 0;
-      for (int i = 0; i < FenString.length();)
+      int currentSquare = 0;
+      for (int i = 0; i < fenString.length();)
       {
         // If it is a piece
-        if (isalpha(FenString[i]))
+        if (isalpha(fenString[i]))
         {
-          PieceParse(FenString[i], PieceArr, ColorArr, CurrentSquare);
-          CurrentSquare++;
+          pieceParse(fenString[i], pieceArr, colorArr, currentSquare);
+          currentSquare++;
           i++;
         }
         // If it is a digit
-        else if (isdigit(FenString[i]))
+        else if (isdigit(fenString[i]))
         {
           // Add the digit to the current square
-          CurrentSquare += int(FenString[i] - '0');
+          currentSquare += int(fenString[i] - '0');
           i++;
         }
-        else if (FenString[i] == '/')
+        else if (fenString[i] == '/')
         {
           i++;
         }
       };
     };
     // Display the board state to a terminal
-    void DisplayBoard(int *Piece, int *Color)
+    void displayBoard(int pieceArr[], int colorArr[])
     {
       std::cout << "Board State: \n";
       char output;
       for (int i = 0; i < 64;)
       {
-        if (Piece[i] == Empty)
+        if (pieceArr[i] == empty)
         {
           output = '+';
         }
-        else if (Piece[i] == Pawn)
+        else if (pieceArr[i] == pawn)
         {
           output = 'p';
         }
-        else if (Piece[i] == Knight)
+        else if (pieceArr[i] == knight)
         {
           output = 'n';
         }
-        else if (Piece[i] == Bishop)
+        else if (pieceArr[i] == bishop)
         {
           output = 'b';
         }
-        else if (Piece[i] == Rook)
+        else if (pieceArr[i] == rook)
         {
           output = 'r';
         }
-        else if (Piece[i] == Queen)
+        else if (pieceArr[i] == queen)
         {
           output = 'q';
         }
-        else if (Piece[i] == King)
+        else if (pieceArr[i] == king)
         {
           output = 'k';
         }
-        if (Color[i] == White)
+        if (colorArr[i] == white)
         {
           output = toupper(output);
         };

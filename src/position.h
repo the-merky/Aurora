@@ -5,11 +5,11 @@ namespace CHAI
     class Position
     {
     public:
-        int Color[64] = {};
-        int Piece[64] = {};
-        bool BQCastlingRights;
-        bool BKCastlingRights;
-        bool WQCastlingRights;
-        bool WKCastlingRights;
+        int color[64] = {};
+        int piece[64] = {};
+        bool bQCastlingRights;
+        bool bKCastlingRights;
+        bool wQCastlingRights;
+        bool wKCastlingRights;
     };
 };

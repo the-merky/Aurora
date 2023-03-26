@@ -4,27 +4,27 @@ namespace CHAI
     class Move
     {
     public:
-        int From;
-        int To;
+        int from;
+        int to;
         // Flags
-        bool *IsCapture;
-        bool *IsPromotion;
-        bool *IsEnPassant;
-        bool *IsCastle;
-        bool *IsQCastle;
+        bool *isCapture;
+        bool *isPromotion;
+        bool *isEnPassant;
+        bool *isCastle;
+        bool *isQCastle;
         // Promotion
-        int PromotionPiece;
-        Move(int From, int To, bool IsCapture = false, bool IsPromotion = false, bool IsEnPassant = false, bool IsCastle = false, bool IsQCastle = false, int PromotionPiece = 0)
+        int promotionPiece;
+        Move(int from, int to, bool isCapture = false, bool isPromotion = false, bool isEnPassant = false, bool isCastle = false, bool isQCastle = false, int promotionPiece = 0)
         {
             //Set values from parameters
-            int From = this->From;
-            int To = this->To;
-            bool IsCapture = this->IsCapture;
-            bool IsPromotion = this->IsPromotion;
-            bool IsEnPassant = this->IsEnPassant;
-            bool IsCastle = this->IsCastle;
-            bool IsQCastle = this->IsQCastle;
-            int PromotionPiece = this->PromotionPiece;
+            int from = this->from;
+            int to = this->to;
+            bool isCapture = this->isCapture;
+            bool isPromotion = this->isPromotion;
+            bool isEnPassant = this->isEnPassant;
+            bool IsCastle = this->isCastle;
+            bool IsQCastle = this->isQCastle;
+            int PromotionPiece = this->promotionPiece;
         };
     };
 };

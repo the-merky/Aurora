@@ -1,15 +1,15 @@
 namespace CHAI
 {
-#define Pawn 1
-#define Knight 2
-#define Bishop 3
-#define Rook 4
-#define Queen 5
-#define King 6
-#define White 8
-#define Black 16
-#define Empty 0
-#define Row(x) x / 8
-#define File(x) x % 8
+#define pawn 1
+#define knight 2
+#define bishop 3
+#define rook 4
+#define queen 5
+#define king 6
+#define white 8
+#define black 16
+#define empty 0
+#define row(x) x / 8
+#define file(x) x % 8
 #define U64 unsigned long long
 }
