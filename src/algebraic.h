@@ -6,9 +6,9 @@ namespace CHAI
     {
         //Namespace for algebraic notation to CHAI-Int parsing
         int enemySide;
-        int (*color)[64];
+        int (**color)[64];
         // A function to set values
-        void setGlobalValues(int colorArr[64])
+        void setGlobalValues(int (*colorArr)[64])
         {
             color = &colorArr;
         }
@@ -97,11 +97,11 @@ namespace CHAI
             }
             else
             {
-                algebricMove += pieceToChar(piece, (*color)[position]);
+                algebricMove += pieceToChar(piece, (**color)[position]);
                 algebricMove += toAlgebraicSquare(position);
             };
             //Move with capture
-            if ((*color)[move] == enemySide)
+            if ((**color)[move] == enemySide)
             {
                 algebricMove += "x";
                 algebricMove += toAlgebraicSquare(move);

@@ -23,6 +23,7 @@ namespace CHAI
             bKCastlingRights = Position.bKCastlingRights;
             wQCastlingRights = Position.wQCastlingRights;
             wKCastlingRights = Position.wKCastlingRights;
+            Algebraic::setGlobalValues(color);
         }
 
         //  Get all possible pseudo-legal moves for a piece
@@ -33,7 +34,7 @@ namespace CHAI
             int move;
             // Ray length
             int range = 1;
-            // Check if the pice is a sliding piece
+            // Check if the piece is a sliding piece
             if (!slide[piece - 1])
             { // It's a knight or a king
                 if (piece != pawn)
