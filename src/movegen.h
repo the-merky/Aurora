@@ -11,7 +11,7 @@ namespace CHAI
         void initializePosition(Position &Position)
         {
             GameState = &Position;
-            Algebraic::setGlobalValues(*GameState);
+            Algebraic::setGlobalValues(Position);
         }
         //  Get all possible pseudo-legal moves for a piece
         void getMoves(int piece, int position, int side)
@@ -39,12 +39,12 @@ namespace CHAI
                                 // Capture
                                 if (GameState->color[move] == enemySide)
                                 {
-                                    std::cout << Algebraic::convertToAlgebraic(piece, position, move) << std::endl;
+                                    std::cout << Algebraic::convertToAlgebraic(position, move) << std::endl;
                                 }
                                 // move
                                 else
                                 {
-                                    std::cout << Algebraic::convertToAlgebraic(piece, position, move) << std::endl;
+                                    std::cout << Algebraic::convertToAlgebraic(position, move) << std::endl;
                                 }
                             }
                         };
@@ -59,22 +59,22 @@ namespace CHAI
                     // Check validity of attack to the right
                     if (mailbox[mailbox64[position] + 9 * Dir] != -1 && GameState->color[mailbox[mailbox64[position] + 9 * Dir]] == enemySide)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(piece, position, mailbox[mailbox64[position] + 9 * Dir]) << std::endl;
+                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 9 * Dir]) << std::endl;
                     }
                     // Check validity of attack to the left
                     if (mailbox[mailbox64[position] + 11 * Dir] != -1 && GameState->color[mailbox[mailbox64[position] + 11 * Dir]] == enemySide)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(piece, position, mailbox[mailbox64[position] + 11 * Dir]) << std::endl;
+                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 11 * Dir]) << std::endl;
                     }
                     // move forward
                     if (mailbox[mailbox64[position] + 10 * Dir] != -1 && GameState->color[mailbox[mailbox64[position] + 10 * Dir]] == EMPTY)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(piece, position, mailbox[mailbox64[position] + 10 * Dir]) << std::endl;
+                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 10 * Dir]) << std::endl;
                     }
                     // Double move
                     if (row(position) == DoubleFile && GameState->color[mailbox[mailbox64[position] + 20 * Dir]] == EMPTY && mailbox[mailbox64[position] + 20 * Dir] != -1)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(piece, position, mailbox[mailbox64[position] + 20 * Dir]) << std::endl;
+                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 20 * Dir]) << std::endl;
                     }
                 };
             }
@@ -100,14 +100,14 @@ namespace CHAI
                                 // Capture
                                 if (enemySide == GameState->color[move])
                                 {
-                                    std::cout << Algebraic::convertToAlgebraic(piece, position, move) << std::endl;
+                                    std::cout << Algebraic::convertToAlgebraic(position, move) << std::endl;
 
                                     break;
                                 }
                                 // move
                                 else
                                 {
-                                    std::cout << Algebraic::convertToAlgebraic(piece, position, move) << std::endl;
+                                    std::cout << Algebraic::convertToAlgebraic(position, move) << std::endl;
                                 }
                             }
                             else
@@ -130,15 +130,14 @@ namespace CHAI
         };
         void generate(int TargetSide)
         {
-            
+            std::cout << "MOVES FOUND:\n";
             // Loop through all squares
             for (int square = 0; square < 64;)
             {
                 // Check if its not the opponents piece
                 if (GameState->color[square] == TargetSide)
                 {
-                    std::cout << "Piece: " << GameState->piece[square] << " Square: " << square << std::endl;
-                    getMoves(GameState->piece[square], square, TargetSide);
+                        getMoves(GameState->piece[square], square, TargetSide);
                 };
                 square++;
             };

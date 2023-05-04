@@ -81,7 +81,7 @@ namespace CHAI
     // Convert FEN string to integral board data
     void parse(std::string fenString, int pieceArr[], int colorArr[])
     {
-      std::cout << "Parsing...";
+      std::cout << "PARSING...";
       // Loop through string
       int currentSquare = 0;
       for (int i = 0; i < fenString.length();)
@@ -109,7 +109,7 @@ namespace CHAI
     // Display the board state to a terminal
     void displayBoard(int pieceArr[], int colorArr[])
     {
-      std::cout << "Board State: \n";
+      std::cout << "BOARD STATE: \n";
       char output;
       for (int i = 0; i < 64;)
       {
