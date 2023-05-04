@@ -1,16 +1,16 @@
 #include <string>
 #include "defs.h"
+#include "position.h"
 namespace CHAI
 {
     namespace Algebraic
     {
         //Namespace for algebraic notation to CHAI-Int parsing
-        int enemySide;
-        int (**color)[64];
+        Position *GameState;
         // A function to set values
-        void setGlobalValues(int (*colorArr)[64])
+        void setGlobalValues(Position Position)
         {
-            color = &colorArr;
+            GameState = &Position;
         }
         // Convert a sqaure to algebraic notation
         std::string toAlgebraicSquare(int square)
@@ -55,33 +55,33 @@ namespace CHAI
             char pieceChar;
             switch (piece)
             {
-            case pawn:
+            case PAWN:
                 pieceChar = 'P';
                 break;
-            case knight:
+            case KNIGHT:
                 pieceChar = 'N';
                 break;
-            case bishop:
+            case BISHOP:
                 pieceChar = 'B';
                 break;
-            case rook:
+            case ROOK:
                 pieceChar = 'R';
                 break;
-            case queen:
+            case QUEEN:
                 pieceChar = 'Q';
                 break;
-            case king:
+            case KING:
                 pieceChar = 'K';
                 break;
             default:
                 pieceChar = ' ';
                 break;
             };
-            if (color == white)
+            if (color == WHITE)
             {
                 pieceChar = toupper(pieceChar);
             }
-            else if (color == black)
+            else if (color == BLACK)
             {
                 pieceChar = tolower(pieceChar);
             }
@@ -91,23 +91,23 @@ namespace CHAI
         {
             //Starting square (with) piece
             std::string algebricMove = "";
-            if (piece == pawn)
+            if (piece == PAWN)
             {
                 algebricMove += toAlgebraicSquare(position);
             }
             else
             {
-                algebricMove += pieceToChar(piece, (**color)[position]);
+                algebricMove += pieceToChar(piece, GameState->color[position]);
                 algebricMove += toAlgebraicSquare(position);
             };
             //Move with capture
-            if ((**color)[move] == enemySide)
+            if (GameState->color[move] == GameState->enemySide)
             {
                 algebricMove += "x";
                 algebricMove += toAlgebraicSquare(move);
             }
             //Move without capture
-            else if (color[move] == empty)
+            else if (GameState->color[move] == EMPTY)
             {
                 algebricMove += "-";
                 algebricMove += toAlgebraicSquare(move);

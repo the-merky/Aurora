@@ -21,59 +21,59 @@ namespace CHAI
       int color;
       if (isupper(fenChar))
       {
-        color = white;
+        color = WHITE;
         if (fenChar == 'P')
         {
-          type = pawn;
+          type = PAWN;
         }
         else if (fenChar == 'N')
         {
-          type = knight;
+          type = KNIGHT;
         }
         else if (fenChar == 'B')
         {
-          type = bishop;
+          type = BISHOP;
         }
         else if (fenChar == 'R')
         {
-          type = rook;
+          type = ROOK;
         }
         else if (fenChar == 'Q')
         {
-          type = queen;
+          type = QUEEN;
         }
         else if (fenChar == 'K')
         {
-          type = king;
+          type = KING;
         }
       }
       else
       {
-        color = black;
+        color = BLACK;
         if (fenChar == 'p')
         {
-          type = pawn;
+          type = PAWN;
         }
         else if (fenChar == 'n')
         {
-          type = knight;
+          type = KNIGHT;
         }
         else if (fenChar == 'b')
         {
-          type = bishop;
+          type = BISHOP;
         }
         else if (fenChar == 'r')
         {
-          type = rook;
+          type = ROOK;
         }
 
         else if (fenChar == 'q')
         {
-          type = queen;
+          type = QUEEN;
         }
         else if (fenChar == 'k')
         {
-          type = king;
+          type = KING;
         }
       };
       set(pieceArr, colorArr, pos, type, color);
@@ -113,35 +113,35 @@ namespace CHAI
       char output;
       for (int i = 0; i < 64;)
       {
-        if (pieceArr[i] == empty)
+        if (pieceArr[i] == EMPTY)
         {
           output = '+';
         }
-        else if (pieceArr[i] == pawn)
+        else if (pieceArr[i] == PAWN)
         {
           output = 'p';
         }
-        else if (pieceArr[i] == knight)
+        else if (pieceArr[i] == KNIGHT)
         {
           output = 'n';
         }
-        else if (pieceArr[i] == bishop)
+        else if (pieceArr[i] == BISHOP)
         {
           output = 'b';
         }
-        else if (pieceArr[i] == rook)
+        else if (pieceArr[i] == ROOK)
         {
           output = 'r';
         }
-        else if (pieceArr[i] == queen)
+        else if (pieceArr[i] == QUEEN)
         {
           output = 'q';
         }
-        else if (pieceArr[i] == king)
+        else if (pieceArr[i] == KING)
         {
           output = 'k';
         }
-        if (colorArr[i] == white)
+        if (colorArr[i] == WHITE)
         {
           output = toupper(output);
         };
