@@ -1,9 +1,7 @@
 
-#include <array>
+#include <vector>
 namespace CHAI
 {
-    //Example pointer to an array
-
     class Position
     {
     public:
@@ -14,7 +12,6 @@ namespace CHAI
         bool bKCastlingRights;
         bool wQCastlingRights;
         bool wKCastlingRights;
-
         Position(int side)
         {
             enemySide = (side == WHITE) ? BLACK : WHITE;
