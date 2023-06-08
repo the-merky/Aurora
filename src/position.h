@@ -1,10 +1,11 @@
-#include <bitset>
 #include <vector>
+#include "move.h"
 namespace CHAI
 {
     class Position
     {
     public:
+        std::vector<Move> moves;
         int color[64] = {};
         int piece[64] = {};
         int enemySide; 
