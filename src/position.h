@@ -1,4 +1,4 @@
-
+#include <bitset>
 #include <vector>
 namespace CHAI
 {
@@ -7,7 +7,7 @@ namespace CHAI
     public:
         int color[64] = {};
         int piece[64] = {};
-        int enemySide;
+        int enemySide; 
         bool bQCastlingRights;
         bool bKCastlingRights;
         bool wQCastlingRights;
