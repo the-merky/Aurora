@@ -17,9 +17,9 @@ namespace CHAI
             Algebraic::setGlobalValues(Position);
         }
         //Checks if the move is legal
-        bool isInCheck(int kingSquare)
+        bool isInCheck(int square)
         {
-            if (attackedSquares.test(kingSquare))
+            if (attackedSquares.test(square))
             {
                 return false;
             }
@@ -71,7 +71,17 @@ namespace CHAI
                                     else
                                     {
                                         std::cout << Algebraic::convertToAlgebraic(position, targetSquare) << std::endl;
-                                        GameState->moves.push_back({position, targetSquare});
+                                        if (piece == KING)
+                                        {
+                                            if (isInCheck(targetSquare))
+                                            {
+                                                GameState->moves.push_back({position, targetSquare});
+                                            }
+                                        }
+                                        else
+                                        {
+                                            GameState->moves.push_back({position, targetSquare});
+                                        }
                                     }
                                 }
                             }
@@ -87,21 +97,27 @@ namespace CHAI
                     // Check validity of attack to the right
                     if (mailbox[mailbox64[position] + 9 * dir] != -1 && GameState->color[mailbox[mailbox64[position] + 9 * dir]] == enemySide)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 9 * dir]) << std::endl;
-                        GameState->moves.push_back({position, mailbox[mailbox64[position] + 9 * dir]});
                         if (attackedSquaresGen)
                         {
                             attackedSquares.set(targetSquare);
+                        }
+                        else
+                        {
+                            std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 9 * dir]) << std::endl;
+                            GameState->moves.push_back({position, mailbox[mailbox64[position] + 9 * dir]});
                         }
                     }
                     // Check validity of attack to the left
                     if (mailbox[mailbox64[position] + 11 * dir] != -1 && GameState->color[mailbox[mailbox64[position] + 11 * dir]] == enemySide)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 11 * dir]) << std::endl;
-                        GameState->moves.push_back({position, mailbox[mailbox64[position] + 11 * dir]});
                         if (attackedSquaresGen)
                         {
                             attackedSquares.set(targetSquare);
+                        }
+                        else
+                        {
+                            std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 11 * dir]) << std::endl;
+                            GameState->moves.push_back({position, mailbox[mailbox64[position] + 11 * dir]});
                         }
                     }
                     // Move forward
@@ -161,6 +177,11 @@ namespace CHAI
                                     if (attackedSquaresGen)
                                     {
                                         attackedSquares.set(targetSquare);
+                                    }
+                                    else
+                                    {
+                                        std::cout << Algebraic::convertToAlgebraic(position, targetSquare) << std::endl;
+                                        GameState->moves.push_back({position, targetSquare});
                                     }
                                 }
                             }
