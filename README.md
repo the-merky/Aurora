@@ -1,20 +1,19 @@
 
-# CHAI
-![Logo](chai-high-resolution-logo-color-on-transparent-background.png)
+# Aurora
 
-CHAI is a fast and powerful chess engine. It is a program based on C++ and is fully open source!
+Aurora is a fast and powerful chess engine. It is a program based on C++ and is fully open source!
 
 
 ## Note
-CHAI is still under development! It is by no means a functioning chess engine and is still in early development.
+Aurora is still under development! It is by no means a functioning chess engine and is still in early development.
 ## Authors
 
 - Shambu Kumar [@ShambuKumar](https://www.github.com/ShambuKumar)
 
 ## Currently being worked on...
  I am currently working on finding the most efficient way to store found moves and positions. 
-## The future of CHAI
-CHAI started out as a traditional chess engine, but there may be a branch the uses machine learning to train itself (like Lc0). Most probably the traditional, stockfish-like will be the first to release, as I am more experienced in this area. CHAI will also *maybe* be transitioning to Rust from C++
+## The future of Aurora
+Aurora started out as a traditional chess engine, but there may be a branch the uses machine learning to train itself (like Lc0). Most probably the traditional, stockfish-like will be the first to release, as I am more experienced in this area. 
 ## Contributing
 Contributions are always welcome!
 
