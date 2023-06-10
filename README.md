@@ -1,6 +1,16 @@
-# Aurora Chess Engine
-# ![Logo](cover-removebg-preview.png)
-## Aurora is an open-source chess engine being developed by Shambu Kumar in C++. 
+# ![Logo](cover.png)
+<p align="center">
+	<a href="https://github.com/ShambuKumar/Aurora/stargazers">
+		<img alt="Stargazers" src="https://img.shields.io/github/stars/ShambuKumar/Aurora?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41">
+  </a>
+	<a href="https://github.com/ShambuKumar/Aurora/issues">
+		<img alt="Issues" src="https://img.shields.io/github/issues/ShambuKumar/Aurora?style=for-the-badge&logo=gitbook&color=B5E8E0&logoColor=D9E0EE&labelColor=302D41">
+  </a>
+  <a href="https://github.com/ShambuKumar/Aurora/activity">
+		<img alt="Activity" src="https://img.shields.io/github/commit-activity/m/ShambuKumar/Aurora?style=for-the-badge&logo=github&color=DDB6F2&logoColor=D9E0EE&labelColor=302D41">
+  </a>
+</p>
+### Aurora is an open-source chess engine being developed by Shambu Kumar in C++. 
 
 ## Goals :dart:
 
