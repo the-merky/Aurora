@@ -10,7 +10,7 @@
 		<img alt="Activity" src="https://img.shields.io/github/commit-activity/m/ShambuKumar/Aurora?style=for-the-badge&logo=github&color=DDB6F2&logoColor=D9E0EE&labelColor=302D41">
   </a>
 </p>
-### Aurora is an open-source chess engine being developed by Shambu Kumar in C++. 
+Aurora is an open-source chess engine being developed by Shambu Kumar in C++. 
 
 ## Goals :dart:
 
