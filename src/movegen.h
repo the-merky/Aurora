@@ -7,8 +7,9 @@ namespace CHAI
 {
     namespace MoveGen
     {
-        //Helper variables
+        // Helper variables
         std::bitset<64> attackedSquares;
+        std::bitset<64> pinnedPieces;
         Position *GameState;
         // Functions
         void initializePosition(Position &Position)
@@ -16,7 +17,7 @@ namespace CHAI
             GameState = &Position;
             Algebraic::setGlobalValues(Position);
         }
-        //Checks if the move is legal
+        // Checks if the move is legal
         bool isInCheck(int square)
         {
             if (attackedSquares.test(square))
@@ -147,20 +148,34 @@ namespace CHAI
                         range = 1;
                         // Calculate the target square(for moving) by multplying the offset by the range and passing it into the mailbox array
                         targetSquare = mailbox[mailbox64[position] + offset[piece - 1][i] * range];
+                        // Helper variable exclusively for the attackedSquaresGen. Helps to the count of the piece the attack is "going through"
+                        int ghostPiece = -1;
                         // Until a valid targetSquare
                         while (targetSquare != -1)
                         {
+                            
                             // Not moving on a square which one's one piece occupies
                             if (GameState->color[targetSquare] != side)
                             {
                                 // Capture
                                 if (enemySide == GameState->color[targetSquare])
                                 {
-                                    //Helper variable exclusively for the attackedSquaresGen. Helps to the count of the piece the attack is "going through"
-                                    int ghostPiece = 0;
-                                    if (attackedSquaresGen && ghostPiece < 2)
+                                    if (attackedSquaresGen)
                                     {
-                                        attackedSquares.set(targetSquare);
+                                        if (ghostPiece < 0)
+                                        {
+                                            ghostPiece = targetSquare;
+                                            std::cout << "Ghostpiece was set to " << targetSquare << " Its value is now " << ghostPiece << std::endl;
+                                        }
+                                        else
+                                        {
+                                            if (!(GameState->color[targetSquare] == side) && GameState->piece[targetSquare] == KING)
+                                            {
+                                                pinnedPieces.set(ghostPiece);
+                                            } else {
+                                                break;
+                                            }
+                                        }
                                     }
                                     else
                                     {
@@ -172,11 +187,12 @@ namespace CHAI
                                 // Move
                                 else
                                 {
-                                    std::cout << Algebraic::convertToAlgebraic(position, targetSquare) << std::endl;
-                                    GameState->moves.push_back({position, targetSquare});
+                                    
                                     if (attackedSquaresGen)
                                     {
-                                        attackedSquares.set(targetSquare);
+                                        if(ghostPiece < 0){
+                                            attackedSquares.set(targetSquare);
+                                        }
                                     }
                                     else
                                     {
