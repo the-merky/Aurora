@@ -50,6 +50,8 @@ Thank you for your interest in Aurora Chess Engine. Stay tuned for future update
 	-Castling
 	-Draws
 	-Castling rights
+## Note
+If you want to follow what is being worked on exactly at the moment, feel free to check out the commits section!
 
 
 
