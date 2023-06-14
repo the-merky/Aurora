@@ -38,6 +38,19 @@ For any questions or inquiries about the Aurora Chess Engine project, please rea
 
 Thank you for your interest in Aurora Chess Engine. Stay tuned for future updates! :rocket:
 
+## Begin worked on right now...
+
+### Legal move generation:
+	- Pinned pieces
+	- Not moving into check
+### Move tree:
+	-Move search and position storing
+### Special moves and rules
+	-En passant
+	-Castling
+	-Draws
+	-Castling rights
+
 
 
 
