@@ -56,7 +56,7 @@ namespace CHAI
                                     {
                                         attackedSquares.set(targetSquare);
                                     }
-                                    else
+                                    else if (!pinnedPieces.test(startSquare))
                                     {
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
@@ -74,12 +74,12 @@ namespace CHAI
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         if (piece == KING)
                                         {
-                                            if (isInCheck(targetSquare))
+                                            if (!isInCheck(targetSquare))
                                             {
                                                 GameState->moves.push_back({startSquare, targetSquare});
                                             }
                                         }
-                                        else
+                                        else if (!pinnedPieces.test(startSquare))
                                         {
                                             GameState->moves.push_back({startSquare, targetSquare});
                                         }
@@ -102,7 +102,7 @@ namespace CHAI
                         {
                             attackedSquares.set(targetSquare);
                         }
-                        else
+                        else if (!pinnedPieces.test(startSquare))
                         {
                             std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 9 * dir]) << std::endl;
                             GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 9 * dir]});
@@ -115,20 +115,20 @@ namespace CHAI
                         {
                             attackedSquares.set(targetSquare);
                         }
-                        else
+                        else if (!pinnedPieces.test(startSquare))
                         {
-                            std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 11 * dir]) << std::endl;
+                            std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 11 * dir] ) << std::endl;
                             GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 11 * dir]});
                         }
                     }
                     // Move forward
-                    if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 && GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] == EMPTY)
+                    if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 && GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] == EMPTY && !pinnedPieces.test(startSquare))
                     {
                         std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 10 * dir]) << std::endl;
                         GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 10 * dir]});
                     }
                     // Double move
-                    if (row(startSquare) == doubleFile && GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] == EMPTY && mailbox[mailbox64[startSquare] + 20 * dir] != -1)
+                    if (row(startSquare) == doubleFile && GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] == EMPTY && mailbox[mailbox64[startSquare] + 20 * dir] != -1 && !pinnedPieces.test(startSquare))
                     {
                         std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 20 * dir]) << std::endl;
                         GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
@@ -197,7 +197,7 @@ namespace CHAI
                                             attackedSquares.set(targetSquare);
                                         }
                                     }
-                                    else
+                                    else if (!pinnedPieces.test(startSquare))
                                     {
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
