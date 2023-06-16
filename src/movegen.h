@@ -50,17 +50,10 @@ namespace CHAI
                             if (GameState->color[targetSquare] != side)
                             {
                                 // Capture
-                                if (GameState->color[targetSquare] == enemySide)
+                                if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !pinnedPieces.test(startSquare))
                                 {
-                                    if (attackedSquaresGen)
-                                    {
-                                        attackedSquares.set(targetSquare);
-                                    }
-                                    else if (!pinnedPieces.test(startSquare))
-                                    {
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
-                                        GameState->moves.push_back({startSquare, targetSquare});
-                                    }
+                                        GameState->moves.push_back({startSquare, targetSquare}); 
                                 }
                                 // Move
                                 else
