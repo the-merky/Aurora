@@ -27,7 +27,7 @@ namespace CHAI
             return true;
         }
         //  Get all possible pseudo-legal targetSquares for a piece
-        void getMoves(int piece, int position, int side, bool attackedSquaresGen)
+        void getMoves(int piece, int, int side, bool attackedSquaresGen)
         {
             int enemySide = (side == WHITE) ? BLACK : WHITE;
             //  Target square of move
@@ -42,7 +42,7 @@ namespace CHAI
                     // Loop through all possible offsets
                     for (int i = 0; i < 8;)
                     {
-                        targetSquare = mailbox[mailbox64[position] + offset[piece - 1][i]];
+                        targetSquare = mailbox[mailbox64[] + offset[piece - 1][i]];
                         // If targetSquare is not out of bounds
                         if (targetSquare != -1)
                         {
@@ -58,8 +58,8 @@ namespace CHAI
                                     }
                                     else
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(position, targetSquare) << std::endl;
-                                        GameState->moves.push_back({position, targetSquare});
+                                        std::cout << Algebraic::convertToAlgebraic(, targetSquare) << std::endl;
+                                        GameState->moves.push_back({, targetSquare});
                                     }
                                 }
                                 // Move
@@ -71,17 +71,17 @@ namespace CHAI
                                     }
                                     else
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(position, targetSquare) << std::endl;
+                                        std::cout << Algebraic::convertToAlgebraic(, targetSquare) << std::endl;
                                         if (piece == KING)
                                         {
                                             if (isInCheck(targetSquare))
                                             {
-                                                GameState->moves.push_back({position, targetSquare});
+                                                GameState->moves.push_back({, targetSquare});
                                             }
                                         }
                                         else
                                         {
-                                            GameState->moves.push_back({position, targetSquare});
+                                            GameState->moves.push_back({, targetSquare});
                                         }
                                     }
                                 }
@@ -96,7 +96,7 @@ namespace CHAI
                     int dir = (side == WHITE) ? -1 : 1;
                     int doubleFile = (side == WHITE) ? 6 : 1;
                     // Check validity of attack to the right
-                    if (mailbox[mailbox64[position] + 9 * dir] != -1 && GameState->color[mailbox[mailbox64[position] + 9 * dir]] == enemySide)
+                    if (mailbox[mailbox64[] + 9 * dir] != -1 && GameState->color[mailbox[mailbox64[] + 9 * dir]] == enemySide)
                     {
                         if (attackedSquaresGen)
                         {
@@ -104,12 +104,12 @@ namespace CHAI
                         }
                         else
                         {
-                            std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 9 * dir]) << std::endl;
-                            GameState->moves.push_back({position, mailbox[mailbox64[position] + 9 * dir]});
+                            std::cout << Algebraic::convertToAlgebraic(, mailbox[mailbox64[] + 9 * dir]) << std::endl;
+                            GameState->moves.push_back({, mailbox[mailbox64[] + 9 * dir]});
                         }
                     }
                     // Check validity of attack to the left
-                    if (mailbox[mailbox64[position] + 11 * dir] != -1 && GameState->color[mailbox[mailbox64[position] + 11 * dir]] == enemySide)
+                    if (mailbox[mailbox64[] + 11 * dir] != -1 && GameState->color[mailbox[mailbox64[] + 11 * dir]] == enemySide)
                     {
                         if (attackedSquaresGen)
                         {
@@ -117,21 +117,21 @@ namespace CHAI
                         }
                         else
                         {
-                            std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 11 * dir]) << std::endl;
-                            GameState->moves.push_back({position, mailbox[mailbox64[position] + 11 * dir]});
+                            std::cout << Algebraic::convertToAlgebraic(, mailbox[mailbox64[] + 11 * dir]) << std::endl;
+                            GameState->moves.push_back({, mailbox[mailbox64[] + 11 * dir]});
                         }
                     }
                     // Move forward
-                    if (mailbox[mailbox64[position] + 10 * dir] != -1 && GameState->color[mailbox[mailbox64[position] + 10 * dir]] == EMPTY)
+                    if (mailbox[mailbox64[] + 10 * dir] != -1 && GameState->color[mailbox[mailbox64[] + 10 * dir]] == EMPTY)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 10 * dir]) << std::endl;
-                        GameState->moves.push_back({position, mailbox[mailbox64[position] + 10 * dir]});
+                        std::cout << Algebraic::convertToAlgebraic(, mailbox[mailbox64[] + 10 * dir]) << std::endl;
+                        GameState->moves.push_back({, mailbox[mailbox64[] + 10 * dir]});
                     }
                     // Double move
-                    if (row(position) == doubleFile && GameState->color[mailbox[mailbox64[position] + 20 * dir]] == EMPTY && mailbox[mailbox64[position] + 20 * dir] != -1)
+                    if (row() == doubleFile && GameState->color[mailbox[mailbox64[] + 20 * dir]] == EMPTY && mailbox[mailbox64[] + 20 * dir] != -1)
                     {
-                        std::cout << Algebraic::convertToAlgebraic(position, mailbox[mailbox64[position] + 20 * dir]) << std::endl;
-                        GameState->moves.push_back({position, mailbox[mailbox64[position] + 20 * dir]});
+                        std::cout << Algebraic::convertToAlgebraic(, mailbox[mailbox64[] + 20 * dir]) << std::endl;
+                        GameState->moves.push_back({, mailbox[mailbox64[] + 20 * dir]});
                     }
                 };
             }
@@ -147,13 +147,13 @@ namespace CHAI
                         // Reset range
                         range = 1;
                         // Calculate the target square(for moving) by multplying the offset by the range and passing it into the mailbox array
-                        targetSquare = mailbox[mailbox64[position] + offset[piece - 1][i] * range];
+                        targetSquare = mailbox[mailbox64[] + offset[piece - 1][i] * range];
                         // Helper variable exclusively for the attackedSquaresGen. Helps to the count of the piece the attack is "going through"
                         int ghostPiece = -1;
                         // Until a valid targetSquare
                         while (targetSquare != -1)
                         {
-                            
+
                             // Not moving on a square which one's one piece occupies
                             if (GameState->color[targetSquare] != side)
                             {
@@ -172,32 +172,35 @@ namespace CHAI
                                             if (!(GameState->color[targetSquare] == side) && GameState->piece[targetSquare] == KING)
                                             {
                                                 pinnedPieces.set(ghostPiece);
-                                            } else {
+                                            }
+                                            else
+                                            {
                                                 break;
                                             }
                                         }
                                     }
-                                    else
+                                    else if (!pinnedPieces.test())
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(position, targetSquare) << std::endl;
-                                        GameState->moves.push_back({position, targetSquare});
+                                        std::cout << Algebraic::convertToAlgebraic(, targetSquare) << std::endl;
+                                        GameState->moves.push_back({, targetSquare});
                                         break;
                                     }
                                 }
                                 // Move
                                 else
                                 {
-                                    
+
                                     if (attackedSquaresGen)
                                     {
-                                        if(ghostPiece < 0){
+                                        if (ghostPiece < 0)
+                                        {
                                             attackedSquares.set(targetSquare);
                                         }
                                     }
                                     else
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(position, targetSquare) << std::endl;
-                                        GameState->moves.push_back({position, targetSquare});
+                                        std::cout << Algebraic::convertToAlgebraic(, targetSquare) << std::endl;
+                                        GameState->moves.push_back({, targetSquare});
                                     }
                                 }
                             }
@@ -208,7 +211,7 @@ namespace CHAI
                             // Ray length increases
                             range++;
                             // Recalculate targetSquare
-                            targetSquare = mailbox[mailbox64[position] + offset[piece - 1][i] * range];
+                            targetSquare = mailbox[mailbox64[] + offset[piece - 1][i] * range];
                         }
                         i++;
                     }
