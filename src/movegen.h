@@ -165,7 +165,6 @@ namespace CHAI
                                         if (ghostPiece < 0)
                                         {
                                             ghostPiece = targetSquare;
-                                            std::cout << "Ghostpiece was set to " << targetSquare << " Its value is now " << ghostPiece << std::endl;
                                         }
                                         else
                                         {
