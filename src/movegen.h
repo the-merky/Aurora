@@ -7,9 +7,12 @@ namespace CHAI
 {
     namespace MoveGen
     {
-        // Helper variables
+        // Helper variables:
+        //Bitboards
         std::bitset<64> attackedSquares;
         std::bitset<64> pinnedPieces;
+        std::bitset<64> defendedPieces;
+        //Pointer to Position object
         Position *GameState;
         // Functions
         void initializePosition(Position &Position)
