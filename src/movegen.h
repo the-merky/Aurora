@@ -82,6 +82,10 @@ namespace CHAI
                                     }
                                 }
                             }
+                            else if (GameState->color[targetSquare] == side && attackedSquaresGen)
+                            {
+                                defendedPieces.set(targetSquare);
+                            }
                         };
                         i++;
                     }
