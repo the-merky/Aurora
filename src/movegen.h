@@ -106,7 +106,7 @@ namespace CHAI
                                 GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 9 * dir]});
                             }
                         }
-                        else if (GameState->color[mailbox[mailbox64[startSquare] + 9 * dir]] == side)
+                        else if (GameState->color[mailbox[mailbox64[startSquare] + 9 * dir]] == side && attackedSquaresGen)
                         {
                             defendedPieces.set(startSquare + 11 * dir);
                         }
@@ -126,7 +126,7 @@ namespace CHAI
                                 GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 11 * dir]});
                             }
                         }
-                        else if (GameState->color[mailbox[mailbox64[startSquare] + 11 * dir]] == side)
+                        else if (GameState->color[mailbox[mailbox64[startSquare] + 11 * dir]] == side && attackedSquaresGen)
                         {
                             defendedPieces.set(startSquare + 11 * dir);
                         }
@@ -213,7 +213,7 @@ namespace CHAI
                                     }
                                 }
                             }
-                            else if (GameState->color[targetSquare] == side)
+                            else if (GameState->color[targetSquare] == side && attackedSquaresGen)
                             {
                                 defendedPieces.set(targetSquare);
                                 break;
