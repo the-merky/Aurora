@@ -8,11 +8,11 @@ namespace CHAI
     namespace MoveGen
     {
         // Helper variables:
-        //Bitboards
+        // Bitboards
         std::bitset<64> attackedSquares;
         std::bitset<64> pinnedPieces;
         std::bitset<64> defendedPieces;
-        //Pointer to Position object
+        // Pointer to Position object
         Position *GameState;
         // Functions
         void initializePosition(Position &Position)
@@ -55,8 +55,8 @@ namespace CHAI
                                 // Capture
                                 if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !pinnedPieces.test(startSquare))
                                 {
-                                        std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
-                                        GameState->moves.push_back({startSquare, targetSquare}); 
+                                    std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
+                                    GameState->moves.push_back({startSquare, targetSquare});
                                 }
                                 // Move
                                 else
@@ -92,29 +92,43 @@ namespace CHAI
                     int dir = (side == WHITE) ? -1 : 1;
                     int doubleFile = (side == WHITE) ? 6 : 1;
                     // Check validity of attack to the right
-                    if (mailbox[mailbox64[startSquare] + 9 * dir] != -1 && GameState->color[mailbox[mailbox64[startSquare] + 9 * dir]] == enemySide)
+                    if (mailbox[mailbox64[startSquare] + 9 * dir] != -1)
                     {
-                        if (attackedSquaresGen)
+                        if (GameState->color[mailbox[mailbox64[startSquare] + 9 * dir]] == enemySide)
                         {
-                            attackedSquares.set(targetSquare);
+                            if (attackedSquaresGen)
+                            {
+                                attackedSquares.set(targetSquare);
+                            }
+                            else if (!pinnedPieces.test(startSquare))
+                            {
+                                std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 9 * dir]) << std::endl;
+                                GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 9 * dir]});
+                            }
                         }
-                        else if (!pinnedPieces.test(startSquare))
+                        else if (GameState->color[mailbox[mailbox64[startSquare] + 9 * dir]] == side)
                         {
-                            std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 9 * dir]) << std::endl;
-                            GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 9 * dir]});
+                            defendedPieces.set(startSquare + 11 * dir);
                         }
                     }
                     // Check validity of attack to the left
-                    if (mailbox[mailbox64[startSquare] + 11 * dir] != -1 && GameState->color[mailbox[mailbox64[startSquare] + 11 * dir]] == enemySide)
+                    if (mailbox[mailbox64[startSquare] + 11 * dir] != -1)
                     {
-                        if (attackedSquaresGen)
+                        if (GameState->color[mailbox[mailbox64[startSquare] + 11 * dir]] == enemySide)
                         {
-                            attackedSquares.set(targetSquare);
+                            if (attackedSquaresGen)
+                            {
+                                attackedSquares.set(targetSquare);
+                            }
+                            else if (!pinnedPieces.test(startSquare))
+                            {
+                                std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 11 * dir]) << std::endl;
+                                GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 11 * dir]});
+                            }
                         }
-                        else if (!pinnedPieces.test(startSquare))
+                        else if (GameState->color[mailbox[mailbox64[startSquare] + 11 * dir]] == side)
                         {
-                            std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 11 * dir] ) << std::endl;
-                            GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 11 * dir]});
+                            defendedPieces.set(startSquare + 11 * dir);
                         }
                     }
                     // Move forward
@@ -199,8 +213,9 @@ namespace CHAI
                                     }
                                 }
                             }
-                            else
+                            else if (GameState->color[targetSquare] == side)
                             {
+                                defendedPieces.set(targetSquare);
                                 break;
                             }
                             // Ray length increases
