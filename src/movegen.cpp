@@ -2,12 +2,12 @@
 #include "fen.h"
 int main()
 {
-    CHAI::Position GameState(WHITE);
-    CHAI::MoveGen::initializePosition(GameState);
-    CHAI::FEN::parse("2p5/1n1n4/8/p1p1p3/8/8/KP6/8", GameState.piece, GameState.color);
-    CHAI::FEN::displayBoard(GameState.piece, GameState.color);
+    Aurora::Position GameState(WHITE);
+    Aurora::MoveGen::initializePosition(GameState);
+    Aurora::FEN::parse("2p5/1n1n4/8/p1p1p3/8/8/KP6/8", GameState.piece, GameState.color);
+    Aurora::FEN::displayBoard(GameState.piece, GameState.color);
     std::cout << std::endl;
-    using namespace CHAI::MoveGen;
+    using namespace Aurora::MoveGen;
     generate(WHITE);
     updateAttackedSquares(BLACK);
     for (int i = 0; i < 64; i++)

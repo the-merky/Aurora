@@ -1,6 +1,6 @@
 #include <vector>
 #include "move.h"
-namespace CHAI
+namespace Aurora
 {
     class Position
     {

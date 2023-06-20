@@ -1,4 +1,4 @@
-namespace CHAI
+namespace Aurora
 {
 #define PAWN 1
 #define KNIGHT 2

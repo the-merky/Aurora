@@ -1,11 +1,11 @@
 #include <string>
 #include "defs.h"
 #include "position.h"
-namespace CHAI
+namespace Aurora
 {
     namespace Algebraic
     {
-        // Namespace for algebraic notation to CHAI-Int parsing
+        // Namespace for algebraic notation to Aurora-Int parsing
         Position *GameState;
         // A function to set values
         void setGlobalValues(Position &Position)

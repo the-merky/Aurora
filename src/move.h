@@ -1,4 +1,4 @@
-namespace CHAI
+namespace Aurora
 {
     struct Move
     {

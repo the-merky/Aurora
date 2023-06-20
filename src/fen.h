@@ -2,10 +2,10 @@
 #include "defs.h"
 #include <iostream>
 #include <cctype>
-// Main namespace of the CHAI chess engine
-namespace CHAI
+// Main namespace of the Aurora chess engine
+namespace Aurora
 {
-  // Namespace for FEN to CHAI-Int parsing
+  // Namespace for FEN to Aurora-Int parsing
   namespace FEN
   {
     // A function to set values

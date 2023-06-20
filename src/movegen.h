@@ -3,7 +3,7 @@
 #include "defs.h"
 #include "movegen-helpers.h"
 #include "algebraic.h"
-namespace CHAI
+namespace Aurora
 {
     namespace MoveGen
     {
