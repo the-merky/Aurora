@@ -108,7 +108,7 @@ namespace CHAI
                         }
                         else if (GameState->color[mailbox[mailbox64[startSquare] + 9 * dir]] == side && attackedSquaresGen)
                         {
-                            defendedPieces.set(startSquare + 11 * dir);
+                            defendedPieces.set(startSquare + 9 * dir);
                         }
                     }
                     // Check validity of attack to the left
