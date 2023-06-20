@@ -4,7 +4,7 @@ int main()
 {
     CHAI::Position GameState(WHITE);
     CHAI::MoveGen::initializePosition(GameState);
-    CHAI::FEN::parse("2p5/1n1n4/8/8/8/8/KP6/8", GameState.piece, GameState.color);
+    CHAI::FEN::parse("2p5/1n1n4/8/p1p1p3/8/8/KP6/8", GameState.piece, GameState.color);
     CHAI::FEN::displayBoard(GameState.piece, GameState.color);
     std::cout << std::endl;
     using namespace CHAI::MoveGen;
@@ -20,7 +20,7 @@ int main()
         std::cout << output << " ";
     };
     std::cout << std::endl;
-    
+
     for (int i = 0; i < 64; i++)
     {
         char output = (defendedPieces.test(i)) ? '0' : '+';

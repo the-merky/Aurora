@@ -5,7 +5,7 @@ namespace CHAI
 {
     namespace Algebraic
     {
-        //Namespace for algebraic notation to CHAI-Int parsing
+        // Namespace for algebraic notation to CHAI-Int parsing
         Position *GameState;
         // A function to set values
         void setGlobalValues(Position &Position)
@@ -89,7 +89,7 @@ namespace CHAI
         }
         std::string convertToAlgebraic(int position, int move)
         {
-            //Starting square (with) piece
+            // Starting square (with) piece
             std::string algebricMove = "";
             if (GameState->piece[position] == PAWN)
             {
@@ -100,13 +100,13 @@ namespace CHAI
                 algebricMove += pieceToChar(GameState->piece[position], GameState->color[position]);
                 algebricMove += toAlgebraicSquare(position);
             };
-            //Move with capture
+            // Move with capture
             if (GameState->color[move] == GameState->enemySide)
             {
                 algebricMove += "x";
                 algebricMove += toAlgebraicSquare(move);
             }
-            //Move without capture
+            // Move without capture
             else if (GameState->color[move] == EMPTY)
             {
                 algebricMove += "-";

@@ -5,5 +5,5 @@ namespace CHAI
         int from;
         int to;
     };
-    
+
 };

@@ -8,7 +8,7 @@ namespace CHAI
         std::vector<Move> moves;
         int color[64] = {};
         int piece[64] = {};
-        int enemySide; 
+        int enemySide;
         bool bQCastlingRights;
         bool bKCastlingRights;
         bool wQCastlingRights;
