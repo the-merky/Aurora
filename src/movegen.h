@@ -63,42 +63,43 @@ namespace CHAI
                                 }
                                 else if (piece == KING)
                                 {
+
                                     if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen)
                                     {
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
-                                    // Move
+                                }
+                                // Move
+                                else
+                                {
+                                    if (attackedSquaresGen)
+                                    {
+                                        attackedSquares.set(targetSquare);
+                                    }
                                     else
                                     {
-                                        if (attackedSquaresGen)
+                                        std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
+                                        if (piece == KING)
                                         {
-                                            attackedSquares.set(targetSquare);
-                                        }
-                                        else
-                                        {
-                                            std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
-                                            if (piece == KING)
-                                            {
-                                                if (!isInCheck(targetSquare))
-                                                {
-                                                    GameState->moves.push_back({startSquare, targetSquare});
-                                                }
-                                            }
-                                            else if (!pinnedPieces.test(startSquare))
+                                            if (!isInCheck(targetSquare))
                                             {
                                                 GameState->moves.push_back({startSquare, targetSquare});
                                             }
                                         }
+                                        else if (!pinnedPieces.test(startSquare))
+                                        {
+                                            GameState->moves.push_back({startSquare, targetSquare});
+                                        }
                                     }
                                 }
-                                else if (GameState->color[targetSquare] == side && attackedSquaresGen)
-                                {
-                                    defendedPieces.set(targetSquare);
-                                }
-                            };
-                            i++;
-                        }
+                            }
+                            else if (GameState->color[targetSquare] == side && attackedSquaresGen)
+                            {
+                                defendedPieces.set(targetSquare);
+                            }
+                        };
+                        i++;
                     }
                 }
                 else if (piece == PAWN)
