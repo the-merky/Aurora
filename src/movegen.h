@@ -64,7 +64,7 @@ namespace Aurora
                                 else if (piece == KING)
                                 {
 
-                                    if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen)
+                                    if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !defendedPieces.test(targetSquare))
                                     {
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
