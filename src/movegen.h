@@ -60,41 +60,54 @@ namespace Aurora
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
+                                    else if(GameState->color[targetSquare] = side && attackedSquaresGen){
+                                        defendedPieces.set(targetSquare);
+                                    }
+                                    //Move
+                                    else
+                                    {
+                                        if (attackedSquaresGen)
+                                        {
+                                            attackedSquares.set(targetSquare);
+                                        }
+                                        else
+                                        {
+                                            std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
+                                            if (!pinnedPieces.test(startSquare))
+                                            {
+                                                GameState->moves.push_back({startSquare, targetSquare});
+                                            }
+                                        }
+                                    }
                                 }
                                 else if (piece == KING)
                                 {
-
-                                    if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !defendedPieces.test(targetSquare))
+                                    //Capture
+                                    if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !(defendedPieces.test(targetSquare)))
                                     {
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
-                                }
-                                // Move
-                                else
-                                {
-                                    if (attackedSquaresGen)
-                                    {
-                                        attackedSquares.set(targetSquare);
-                                    }
+                                    // Move
                                     else
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
-                                        if (piece == KING)
+                                        if (attackedSquaresGen)
                                         {
+                                            attackedSquares.set(targetSquare);
+                                        }
+                                        else
+                                        {
+                                            std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
+
                                             if (!isInCheck(targetSquare))
                                             {
                                                 GameState->moves.push_back({startSquare, targetSquare});
                                             }
                                         }
-                                        else if (!pinnedPieces.test(startSquare))
-                                        {
-                                            GameState->moves.push_back({startSquare, targetSquare});
-                                        }
                                     }
                                 }
                             }
-                            else if (GameState->color[targetSquare] == side && attackedSquaresGen)
+                            if (GameState->color[targetSquare] == side && attackedSquaresGen)
                             {
                                 defendedPieces.set(targetSquare);
                             }
