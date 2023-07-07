@@ -4,7 +4,7 @@ int main()
 {
     Aurora::Position GameState(WHITE);
     Aurora::MoveGen::initializePosition(GameState);
-    Aurora::FEN::parse("8/8/8/8/5n2/8/6r1/7K", GameState.piece, GameState.color);
+    Aurora::FEN::parse("K7/7r/8/8/8/8/8/1r6", GameState.piece, GameState.color);
     Aurora::FEN::displayBoard(GameState.piece, GameState.color);
     std::cout << std::endl;
     using namespace Aurora::MoveGen;

@@ -21,14 +21,7 @@ namespace Aurora
             Algebraic::setGlobalValues(Position);
         }
         // Checks if the move is legal
-        bool isInCheck(int square)
-        {
-            if (attackedSquares.test(square))
-            {
-                return false;
-            }
-            return true;
-        }
+
         //  Get all possible pseudo-legal targetSquares for a piece
         void getMoves(int piece, int startSquare, int side, bool attackedSquaresGen)
         {
@@ -60,10 +53,11 @@ namespace Aurora
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
-                                    else if(GameState->color[targetSquare] = side && attackedSquaresGen){
+                                    else if (GameState->color[targetSquare] = side && attackedSquaresGen)
+                                    {
                                         defendedPieces.set(targetSquare);
                                     }
-                                    //Move
+                                    // Move
                                     else
                                     {
                                         if (attackedSquaresGen)
@@ -82,8 +76,8 @@ namespace Aurora
                                 }
                                 else if (piece == KING)
                                 {
-                                    //Capture
-                                    if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !(defendedPieces.test(targetSquare)))
+                                    // Capture
+                                    if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !defendedPieces.test(targetSquare))
                                     {
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
@@ -95,14 +89,10 @@ namespace Aurora
                                         {
                                             attackedSquares.set(targetSquare);
                                         }
-                                        else
+                                        else if (!attackedSquares.test(targetSquare) && !attackedSquaresGen)
                                         {
                                             std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
-
-                                            if (!isInCheck(targetSquare))
-                                            {
-                                                GameState->moves.push_back({startSquare, targetSquare});
-                                            }
+                                            GameState->moves.push_back({startSquare, targetSquare});
                                         }
                                     }
                                 }
