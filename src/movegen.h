@@ -89,7 +89,7 @@ namespace Aurora
                                         {
                                             attackedSquares.set(targetSquare);
                                         }
-                                        else if (!attackedSquares.test(targetSquare) && !attackedSquaresGen)
+                                        else if (!attackedSquares.test(targetSquare) && !attackedSquaresGen && GameState->color[targetSquare] == EMPTY)
                                         {
                                             std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                             GameState->moves.push_back({startSquare, targetSquare});
