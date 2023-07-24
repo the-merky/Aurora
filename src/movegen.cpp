@@ -8,8 +8,9 @@ int main()
     Aurora::FEN::displayBoard(GameState.piece, GameState.color);
     std::cout << std::endl;
     using namespace Aurora::MoveGen;
-    generate(WHITE);
     updateAttackedSquares(BLACK);
+    generate(WHITE);
+    
     std::cout << "ATTACKED SQUARES:" << std::endl;
     for (int i = 0; i < 64; i++)
     {
