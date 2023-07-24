@@ -53,7 +53,7 @@ namespace Aurora
                                         std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
-                                    else if (GameState->color[targetSquare] = side && attackedSquaresGen)
+                                    else if (GameState->color[targetSquare] == side && attackedSquaresGen)
                                     {
                                         defendedPieces.set(targetSquare);
                                     }
