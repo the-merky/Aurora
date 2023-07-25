@@ -45,5 +45,6 @@ int main()
         std::cout << output << " ";
     };
     std::cout << std::endl;
+    printMoves();
     return 0;
 }

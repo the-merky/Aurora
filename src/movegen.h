@@ -252,6 +252,12 @@ namespace Aurora
                 };
             }
         }
+        void printMoves(){
+            for (int i = 0; i < GameState->moves.size(); i++)
+            {
+                std::cout << Algebraic::convertToAlgebraic(GameState->moves[i].from, GameState->moves[i].to) << " , ";
+            }
+        }
         void generate(int side)
         {
             std::cout << "MOVES FOUND:\n";
@@ -279,5 +285,6 @@ namespace Aurora
                 square++;
             };
         };
+        
     }
 }
