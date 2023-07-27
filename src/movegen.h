@@ -50,7 +50,6 @@ namespace Aurora
                                     // Capture
                                     if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !pinnedPieces.test(startSquare))
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
                                     else if (GameState->color[targetSquare] == side && attackedSquaresGen)
@@ -66,7 +65,6 @@ namespace Aurora
                                         }
                                         else
                                         {
-                                            std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                             if (!pinnedPieces.test(startSquare))
                                             {
                                                 GameState->moves.push_back({startSquare, targetSquare});
@@ -79,7 +77,6 @@ namespace Aurora
                                     // Capture
                                     if (GameState->color[targetSquare] == enemySide && !attackedSquaresGen && !defendedPieces.test(targetSquare))
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
                                     // Move
@@ -91,7 +88,6 @@ namespace Aurora
                                         }
                                         else if (!attackedSquares.test(targetSquare) && !attackedSquaresGen && GameState->color[targetSquare] == EMPTY)
                                         {
-                                            std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                             GameState->moves.push_back({startSquare, targetSquare});
                                         }
                                     }
@@ -121,7 +117,6 @@ namespace Aurora
                             }
                             else if (!pinnedPieces.test(startSquare))
                             {
-                                std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 9 * dir]) << std::endl;
                                 GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 9 * dir]});
                             }
                         }
@@ -141,7 +136,6 @@ namespace Aurora
                             }
                             else if (!pinnedPieces.test(startSquare))
                             {
-                                std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 11 * dir]) << std::endl;
                                 GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 11 * dir]});
                             }
                         }
@@ -153,13 +147,11 @@ namespace Aurora
                     // Move forward
                     if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 && GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] == EMPTY && !pinnedPieces.test(startSquare))
                     {
-                        std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 10 * dir]) << std::endl;
                         GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 10 * dir]});
                     }
                     // Double move
                     if (row(startSquare) == doubleFile && GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] == EMPTY && mailbox[mailbox64[startSquare] + 20 * dir] != -1 && !pinnedPieces.test(startSquare))
                     {
-                        std::cout << Algebraic::convertToAlgebraic(startSquare, mailbox[mailbox64[startSquare] + 20 * dir]) << std::endl;
                         GameState->moves.push_back({startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
                     }
                 };
@@ -209,7 +201,6 @@ namespace Aurora
                                     }
                                     else if (!pinnedPieces.test(startSquare))
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                         break;
                                     }
@@ -228,7 +219,6 @@ namespace Aurora
                                     }
                                     else if (!pinnedPieces.test(startSquare))
                                     {
-                                        std::cout << Algebraic::convertToAlgebraic(startSquare, targetSquare) << std::endl;
                                         GameState->moves.push_back({startSquare, targetSquare});
                                     }
                                 }
@@ -252,7 +242,8 @@ namespace Aurora
                 };
             }
         }
-        void printMoves(){
+        void printMoves()
+        {
             for (int i = 0; i < GameState->moves.size(); i++)
             {
                 std::cout << Algebraic::convertToAlgebraic(GameState->moves[i].from, GameState->moves[i].to) << " , ";
@@ -285,6 +276,6 @@ namespace Aurora
                 square++;
             };
         };
-        
+
     }
 }
