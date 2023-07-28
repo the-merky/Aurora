@@ -246,7 +246,7 @@ namespace Aurora
         {
             for (int i = 0; i < GameState->moves.size(); i++)
             {
-                std::cout << Algebraic::convertToAlgebraic(GameState->moves[i].from, GameState->moves[i].to) << " , ";
+                std::cout << Algebraic::convertToAlgebraic(GameState->moves[i].startSquare, GameState->moves[i].targetSquare) << " , ";
             }
         }
         void generate(int side)
@@ -276,6 +276,17 @@ namespace Aurora
                 square++;
             };
         };
-
+        int targetSquareTemp;
+        void makeMove(Move move, Position position)
+        {
+            targetSquareTemp = position.piece[move.targetSquare];
+            position.piece[move.targetSquare] = position.piece[move.startSquare];
+            position.piece[move.startSquare] = EMPTY;
+        }
+        void unMakeMove(Move move, Position Position)
+        {
+            Position.piece[move.startSquare] = Position.piece[move.targetSquare];
+            Position.piece[move.targetSquare] = targetSquareTemp;
+        }
     }
 }
