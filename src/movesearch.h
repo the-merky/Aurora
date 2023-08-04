@@ -2,7 +2,11 @@
 #include <stdio.h>
 namespace Aurora {
 namespace MoveSearch {
-void search(int depth, Position *RootPosition) {}
-
+inline void search(int depth, Position *RootPosition) {
+  for (int i = 0; i < RootPosition->moves.size();) {
+    MoveGen::makeMove(RootPosition->moves[i], *RootPosition);
+  }
+}
 } // namespace MoveSearch
+// namespace MoveSearch
 } // namespace Aurora
