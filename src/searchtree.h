@@ -1,6 +1,9 @@
-#include "position.h"
+#include "node.h"
 namespace Aurora {
 class SearchTree {
-  SearchTree(int depth, Position *RootPosition) {}
+public:
+  Node *Root;
+  SearchTree(Position *RootPosition) { Root->Position = RootPosition; }
 };
-} // namespace Aurora
+}; // namespace Aurora
+   // namespace Aurora

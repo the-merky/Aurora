@@ -231,11 +231,5 @@ inline void updateAttackedSquares(int side) {
     square++;
   };
 };
-inline Position makeMove(Move Move, Position Position, int side) {
-  class Position TempPos(side, true, &Position);
-  TempPos.piece[Move.targetSquare] = Position.piece[Move.startSquare];
-  TempPos.piece[Move.startSquare] = EMPTY;
-  return TempPos;
-}
 } // namespace MoveGen
 } // namespace Aurora
