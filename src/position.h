@@ -9,6 +9,7 @@ public:
   int color[64] = {};
   int piece[64] = {};
   int enemySide;
+  int evalScore;
   bool bQCastlingRights;
   bool bKCastlingRights;
   bool wQCastlingRights;

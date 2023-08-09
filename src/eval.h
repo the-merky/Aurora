@@ -1,5 +1,3 @@
 namespace Aurora {
-  void Eval(){
-  return;
-};
-}
+int Eval() { return 0; };
+} // namespace Aurora
