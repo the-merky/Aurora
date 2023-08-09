@@ -1,4 +1,4 @@
-#include "node.h"
+#include "movegen.h"
 #include <stdio.h>
 namespace Aurora {
 namespace MoveSearch {

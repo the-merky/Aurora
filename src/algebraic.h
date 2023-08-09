@@ -1,5 +1,5 @@
 #include "defs.h"
-#include "position.h"
+#include "node.h"
 #include <string>
 namespace Aurora {
 namespace Algebraic {
