@@ -16,7 +16,7 @@ Aurora is an open-source chess engine being developed by Shambu Kumar in C++.
 
 - **Chess Engine**: Aurora aims to be a powerful and fast chess engine.
 - **Open Source**: The project is open-source, fostering collaboration and allowing developers to contribute, modify, and enhance the engine.
-- **Neural Network**: The engine will use a neural netowrk for evaluation. 
+- **Neural Network**: The engine will use a neural network for evaluation. 
 ## Development Status :construction:
 
 Please note that the Aurora Chess Engine project is currently a work in progress and not ready for use. Development is ongoing, and the engine is not yet fully functional.
@@ -31,12 +31,12 @@ The project is under the MIT license
 
 ## Contact :email:
 
-For any questions or inquiries about the Aurora Chess Engine project, please reach out to me at kumarshambu2010@gmail.com.
+For any questions or inquiries about the Aurora Chess Engine project, please reach out to me at work@merky.dev
 
 Thank you for your interest in Aurora Chess Engine. Stay tuned for future updates! :rocket:
 
 ## Begin worked on right now...
-
+### Using UCI or making a dedicated GUI
 ### Move Search
 ### Special moves and rules
 	-En passant
@@ -45,6 +45,9 @@ Thank you for your interest in Aurora Chess Engine. Stay tuned for future update
 	-Castling rights
 ## Note
 If you want to follow what is being worked on exactly at the moment, feel free to check out the commits section!
+# Documentation
+### Note 
+This section will cover how to chess engine works, and how to use it. This section may be updated less, because the main goal is to deliver a working chess engine, but this also helps to keep the project more organized!
 
 
 
