@@ -48,7 +48,10 @@ If you want to follow what is being worked on exactly at the moment, feel free t
 # Documentation
 ### Note 
 This section will cover how to chess engine works, and how to use it. This section may be updated less, because the main goal is to deliver a working chess engine, but this also helps to keep the project more organized!
-
-
-
+## File structure
+The project consists of:
+ -This README
+ -The MIT license
+ -An src folder which contains all code -this will be covered in detail in the other section
+ 
 
