@@ -185,9 +185,10 @@ inline void getMoves(int piece, int startSquare, int side,
                 GameState->moves.push_back({startSquare, targetSquare});
               }
             }
-          } else if (GameState->color[targetSquare] == side &&
-                     attackedSquaresGen) {
-            defendedPieces.set(targetSquare);
+          } else if (GameState->color[targetSquare] == side) {
+            if (attackedSquaresGen) {
+              defendedPieces.set(targetSquare);
+            }
             break;
           }
           // Ray length increases
