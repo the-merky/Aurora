@@ -14,19 +14,16 @@ public:
   bool bKCastlingRights;
   bool wQCastlingRights;
   bool wKCastlingRights;
-  Position(int side, bool copyPosition = false, Position *Position = nullptr) {
-    enemySide = (side == WHITE) ? BLACK : WHITE;
-    if (copyPosition) {
-      // Copy bool property and side
-      enemySide = Position->enemySide;
-      bQCastlingRights = Position->bQCastlingRights;
-      bKCastlingRights = Position->bKCastlingRights;
-      wQCastlingRights = Position->wQCastlingRights;
-      // Copy color and piece arrays with loop
-      for (int i = 0; i < 64;) {
-        color[i] = Position->color[i];
-        piece[i] = Position->piece[i];
-      }
+  void copyPosition(Position *Position) {
+    // Copy bool property and side
+    enemySide = Position->enemySide;
+    bQCastlingRights = Position->bQCastlingRights;
+    bKCastlingRights = Position->bKCastlingRights;
+    wQCastlingRights = Position->wQCastlingRights;
+    // Copy color and piece arrays with loop
+    for (int i = 0; i < 64; i++) {
+      color[i] = Position->color[i];
+      piece[i] = Position->piece[i];
     }
   }
 };
