@@ -55,7 +55,7 @@ This section will cover how to chess engine works, and how to use it. This secti
 ###
 - **This README**
 - **The MIT license**
-- **An src folder 
- - which contains all code -this will be covered in detail in the other section**
+- **An src folder**
+which contains all code -this will be covered in detail in the other section
 ###
 
