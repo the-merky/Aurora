@@ -39,10 +39,12 @@ Thank you for your interest in Aurora Chess Engine. Stay tuned for future update
 ### Using UCI or making a dedicated GUI
 ### Move Search
 ### Special moves and rules
-	-En passant
+###
+ -En passant
 	-Castling
 	-Draws
 	-Castling rights
+###
 ## Note
 If you want to follow what is being worked on exactly at the moment, feel free to check out the commits section!
 # Documentation
@@ -50,8 +52,9 @@ If you want to follow what is being worked on exactly at the moment, feel free t
 This section will cover how to chess engine works, and how to use it. This section may be updated less, because the main goal is to deliver a working chess engine, but this also helps to keep the project more organized!
 ## File structure
 ### The project consists of:
-	 -This README
-	 -The MIT license
-	 -An src folder which contains all code -this will be covered in detail in the other section
- 
+###
+ -This README
+	-The MIT license
+	-An src folder which contains all code -this will be covered in detail in the other section
+ ###
 
