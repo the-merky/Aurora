@@ -7,7 +7,7 @@ namespace Aurora {
 namespace MoveSearch {
 
 inline Position makeMove(Move Move, Position Position,
-                         class Position ReturnPos) {
+                         class Position &ReturnPos) {
   ReturnPos.copyPosition(&Position);
   ReturnPos.piece[Move.targetSquare] = Position.piece[Move.startSquare];
   ReturnPos.piece[Move.startSquare] = EMPTY;
@@ -22,8 +22,9 @@ void search(int depth, int currentDepth, Node Node) {
   MoveGen::updateAttackedSquares(BLACK);
   MoveGen::generate(WHITE);
   for (int i = 0; i < Node.position.moves.size();) {
-    Node.children.push_back(
-        {.position = makeMove(Node.position.moves[i], Node.position)});
+    Position ChildNode;
+    makeMove(Node.position.moves[i], Node.position, ChildNode);
+    Node.children.push_back({.position = ChildNode});
     std::cout << "A\n";
     search(depth, currentDepth + 1, Node.children[Node.children.size() - 1]);
     std::cout << "B\n";
