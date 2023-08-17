@@ -6,12 +6,12 @@
 namespace Aurora {
 namespace MoveSearch {
 
-inline Position makeMove(Move Move, Position Position) {
-  class Position TempPos;
-  TempPos.copyPosition(&Position);
-  TempPos.piece[Move.targetSquare] = Position.piece[Move.startSquare];
-  TempPos.piece[Move.startSquare] = EMPTY;
-  return TempPos;
+inline Position makeMove(Move Move, Position Position,
+                         class Position ReturnPos) {
+  ReturnPos.copyPosition(&Position);
+  ReturnPos.piece[Move.targetSquare] = Position.piece[Move.startSquare];
+  ReturnPos.piece[Move.startSquare] = EMPTY;
+  return ReturnPos;
 }
 void search(int depth, int currentDepth, Node Node) {
   if (currentDepth > depth) {
