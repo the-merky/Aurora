@@ -33,6 +33,7 @@ void search(int depth, int currentDepth, Node Node) {
     std::cout << "A\n";
     search(depth, currentDepth + 1, Node.children[Node.children.size() - 1]);
     std::cout << "B\n";
+    i++;
   }
 }
 } // namespace MoveSearch
@@ -43,5 +44,5 @@ int main() {
   Node TestNode;
   FEN::parse("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
              TestNode.position.piece, TestNode.position.color);
-  MoveSearch::search(3, 1, TestNode);
+  MoveSearch::search(2, 1, TestNode);
 }
