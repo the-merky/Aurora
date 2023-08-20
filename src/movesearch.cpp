@@ -6,12 +6,14 @@
 namespace Aurora {
 namespace MoveSearch {
 
-inline Position makeMove(Move Move, Position Position,
-                         class Position &ReturnPos) {
-  ReturnPos.copyPosition(&Position);
+inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
+  ReturnPos.copyPosition(Position);
+  // Make move on piece array
   ReturnPos.piece[Move.targetSquare] = Position.piece[Move.startSquare];
   ReturnPos.piece[Move.startSquare] = EMPTY;
-  return ReturnPos;
+  // And on color array
+  ReturnPos.color[Move.targetSquare] = Position.color[Move.startSquare];
+  ReturnPos.color[Move.startSquare] = EMPTY;
 }
 void search(int depth, int currentDepth, Node Node) {
   if (currentDepth > depth) {
@@ -19,12 +21,15 @@ void search(int depth, int currentDepth, Node Node) {
   }
   std::cout << "currentDepth = " << currentDepth << std::endl;
   MoveGen::initializePosition(Node.position);
+  std::cout << "1\n";
   MoveGen::updateAttackedSquares(BLACK);
+  std::cout << "2\n";
   MoveGen::generate(WHITE);
+  std::cout << "3\n";
   for (int i = 0; i < Node.position.moves.size();) {
-    Position ChildNode;
-    makeMove(Node.position.moves[i], Node.position, ChildNode);
-    Node.children.push_back({.position = ChildNode});
+    Node.children.push_back({});
+    makeMove(Node.position.moves[i], Node.position,
+             Node.children[Node.children.size() - 1].position);
     std::cout << "A\n";
     search(depth, currentDepth + 1, Node.children[Node.children.size() - 1]);
     std::cout << "B\n";
@@ -38,5 +43,5 @@ int main() {
   Node TestNode;
   FEN::parse("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
              TestNode.position.piece, TestNode.position.color);
-  MoveSearch::search(24, 1, TestNode);
+  MoveSearch::search(3, 1, TestNode);
 }
