@@ -19,7 +19,6 @@ void search(int depth, int currentDepth, Node Node) {
   if (currentDepth > depth) {
     return;
   }
-  std::cout << "currentDepth = " << currentDepth << std::endl;
   MoveGen::initializePosition(Node.position);
   MoveGen::updateAttackedSquares(BLACK);
   MoveGen::generate(WHITE);
@@ -39,5 +38,5 @@ int main() {
   Node TestNode;
   FEN::parse("rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR",
              TestNode.position.piece, TestNode.position.color);
-  MoveSearch::search(5, 1, TestNode);
+  MoveSearch::search(3, 1, TestNode);
 }

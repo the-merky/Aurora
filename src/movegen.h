@@ -3,6 +3,7 @@
 #include "movegen-helpers.h"
 #include <bitset>
 #include <iostream>
+#include <ostream>
 namespace Aurora {
 namespace MoveGen {
 // Helper variables:
@@ -17,8 +18,6 @@ inline void initializePosition(Position &Position) {
   GameState = &Position;
   Algebraic::setGlobalValues(Position);
 }
-// Checks if the move is legal
-
 //  Get all possible pseudo-legal targetSquares for a piece
 inline void getMoves(int piece, int startSquare, int side,
                      bool attackedSquaresGen) {
@@ -212,7 +211,6 @@ inline void printMoves() {
   }
 }
 inline void generate(int side) {
-  std::cout << "MOVES FOUND:\n";
   // Loop through all squares
   for (int square = 0; square < 64;) {
     // Check if its not the opponents piece
