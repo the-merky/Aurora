@@ -58,4 +58,12 @@ This section will cover how to chess engine works, and how to use it. This secti
 - **An src folder**
 which contains all code -this will be covered in detail in the other section
 ###
+### Program overview
+### The engine code consists of these 3 core parts
+- **Move Generation: **
+The computer gets all legal moves from a chess position
+- **Move Search: **
+Create a search tree of positions with a given depth
+- **Evaluation: ** 
+Give a chess position an evaluation score based pn which side is more likely to win
 
