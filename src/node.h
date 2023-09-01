@@ -3,7 +3,7 @@
 #include <vector>
 namespace Aurora {
 struct Node {
-  Position position = Position();
+  Position position;
   std::vector<Node> children;
 };
 } // namespace Aurora
