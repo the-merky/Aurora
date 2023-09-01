@@ -116,24 +116,27 @@ inline void getMoves(int piece, int startSquare, int side,
           defendedPieces.set(startSquare + 11 * dir);
         }
       }
-      // Move forward
-      if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 &&
-          GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
-              EMPTY &&
-          !pinnedPieces.test(startSquare)) {
-        GameState->moves.push_back(
-            {startSquare, mailbox[mailbox64[startSquare] + 10 * dir]});
+      if (!attackedSquaresGen) {
+
+        // Move forward
+        if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 &&
+            GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
+                EMPTY &&
+            !pinnedPieces.test(startSquare)) {
+          GameState->moves.push_back(
+              {startSquare, mailbox[mailbox64[startSquare] + 10 * dir]});
+        }
+        // Double move
+        if (row(startSquare) == doubleFile &&
+            GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] ==
+                EMPTY &&
+            mailbox[mailbox64[startSquare] + 20 * dir] != -1 &&
+            !pinnedPieces.test(startSquare)) {
+          GameState->moves.push_back(
+              {startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
+        }
       }
-      // Double move
-      if (row(startSquare) == doubleFile &&
-          GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] ==
-              EMPTY &&
-          mailbox[mailbox64[startSquare] + 20 * dir] != -1 &&
-          !pinnedPieces.test(startSquare)) {
-        GameState->moves.push_back(
-            {startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
-      }
-    };
+    }
   } else if (slide[piece - 1]) {
     // It's a sliding piece
     // Loop thorugh all offsets
