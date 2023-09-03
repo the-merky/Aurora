@@ -15,7 +15,7 @@ inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
   ReturnPos.color[Move.targetSquare] = Position.color[Move.startSquare];
   ReturnPos.color[Move.startSquare] = EMPTY;
 }
-void search(int depth, int currentDepth, Node Node) {
+inline void search(int depth, int currentDepth, Node Node) {
   if (currentDepth > depth) {
     return;
   }
