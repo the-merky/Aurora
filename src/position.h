@@ -16,7 +16,7 @@ public:
   bool wKCastlingRights;
   void copyPosition(Position &Position) {
     // Copy bool property and side
-    enemySide = Position.enemySide;
+    enemySide = (Position.enemySide = WHITE) ? BLACK : WHITE;
     bQCastlingRights = Position.bQCastlingRights;
     bKCastlingRights = Position.bKCastlingRights;
     wQCastlingRights = Position.wQCastlingRights;
