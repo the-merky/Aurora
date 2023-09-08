@@ -9,9 +9,10 @@ namespace Aurora
 #define WHITE 8
 #define BLACK 16
 #define EMPTY 0
-#define ENPASSANT 1
-#define KCASTLING 2
-#define QCASTLING 3
+#define RENPASSANT -1
+#define LENPASSANT -2
+#define KCASTLING -3
+#define QCASTLING -4
 #define row(x) x / 8
 #define file(x) x % 8
 #define U64 unsigned long long
