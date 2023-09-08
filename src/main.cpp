@@ -1,4 +1,5 @@
 #include "movesearch.h"
+#include <iostream>
 // Test MoveSearch
 int main() {
   using namespace Aurora;
@@ -7,3 +8,4 @@ int main() {
              TestNode.position.piece, TestNode.position.color);
   MoveSearch::search(5, 1, TestNode);
 }
+std::cout<< ::

@@ -27,7 +27,8 @@ inline void getMoves(int piece, int startSquare, int side,
   // Ray length
   int range = 1;
   // Check if the piece is a sliding piece
-  if (!slide[piece - 1]) { // It's a KNIGHT or a KING
+  if (!slide[piece - 1]) {
+    // It's a KNIGHT or a KING
     if (piece != PAWN) {
       // Loop through all possible offsets
       for (int i = 0; i < 8;) {
@@ -71,7 +72,13 @@ inline void getMoves(int piece, int startSquare, int side,
                   GameState->moves.push_back({startSquare, targetSquare});
                 }
               }
-            }
+              // Castling
+              if(GameState->bKCastlingRights){
+
+              }
+              }if(GameState->bQCastlingRights){
+
+              }
           }
           if (GameState->color[targetSquare] == side && attackedSquaresGen) {
             defendedPieces.set(targetSquare);
@@ -117,7 +124,6 @@ inline void getMoves(int piece, int startSquare, int side,
         }
       }
       if (!attackedSquaresGen) {
-
         // Move forward
         if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 &&
             GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
@@ -214,6 +220,8 @@ inline void printMoves() {
   }
 }
 inline void generate(int side) {
+  // Update castling rights 
+  //TODO insert code
   // Loop through all squares
   for (int square = 0; square < 64;) {
     // Check if its not the opponents piece
