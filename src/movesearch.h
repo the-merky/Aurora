@@ -8,12 +8,31 @@ namespace MoveSearch {
 
 inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
   ReturnPos.copyPosition(Position);
-  // Make move on piece array
-  ReturnPos.piece[Move.targetSquare] = Position.piece[Move.startSquare];
-  ReturnPos.piece[Move.startSquare] = EMPTY;
-  // And on color array
-  ReturnPos.color[Move.targetSquare] = Position.color[Move.startSquare];
-  ReturnPos.color[Move.startSquare] = EMPTY;
+  if (Move.startSquare == -3 || -4) {
+    if (Position.enemySide == BLACK) {
+      // WHITE castles
+      if (Move.startSquare == -3) {
+      //KING side
+      } else {
+        //QUEEN side
+      }
+    } else {
+      // BLACK castles
+      
+      if (Move.startSquare == -3) {
+      //KING side
+      } else {
+        //QUEEN side
+      }
+    }
+  } else {
+    // Make move on piece array
+    ReturnPos.piece[Move.targetSquare] = Position.piece[Move.startSquare];
+    ReturnPos.piece[Move.startSquare] = EMPTY;
+    // And on color array
+    ReturnPos.color[Move.targetSquare] = Position.color[Move.startSquare];
+    ReturnPos.color[Move.startSquare] = EMPTY;
+  }
 }
 inline void search(int depth, int currentDepth, Node Node) {
   if (currentDepth > depth) {

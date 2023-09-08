@@ -12,7 +12,7 @@ namespace Aurora
 #define RENPASSANT -1
 #define LENPASSANT -2
 #define KCASTLING -3
-#define QCASTLING -4
+#define QCASTLING -4 
 #define row(x) x / 8
 #define file(x) x % 8
 #define U64 unsigned long long
