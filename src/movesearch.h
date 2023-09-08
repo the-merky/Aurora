@@ -9,20 +9,23 @@ namespace MoveSearch {
 inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
   ReturnPos.copyPosition(Position);
   if (Move.startSquare == -3 || -4) {
+
     if (Position.enemySide == BLACK) {
       // WHITE castles
+      ReturnPos.wKCastlingRights = false;
+      ReturnPos.wQCastlingRights = false;
       if (Move.startSquare == -3) {
-      //KING side
+        // KING side
       } else {
-        //QUEEN side
+        // QUEEN side
       }
     } else {
       // BLACK castles
-      
+
       if (Move.startSquare == -3) {
-      //KING side
+        // KING side
       } else {
-        //QUEEN side
+        // QUEEN side
       }
     }
   } else {
@@ -32,6 +35,24 @@ inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
     // And on color array
     ReturnPos.color[Move.targetSquare] = Position.color[Move.startSquare];
     ReturnPos.color[Move.startSquare] = EMPTY;
+    if (ReturnPos.piece[Move.targetSquare] == KING) {
+      if (ReturnPos.enemySide == BLACK) {
+        ReturnPos.wKCastlingRights = false;
+        ReturnPos.wQCastlingRights = false;
+      } else {
+        ReturnPos.wKCastlingRights = false;
+        ReturnPos.wQCastlingRights = false;
+      }
+    }
+    if (ReturnPos.piece[Move.targetSquare] == ROOK) {
+      if (ReturnPos.enemySide == BLACK) {
+        ReturnPos.wKCastlingRights = false;
+        ReturnPos.wQCastlingRights = false;
+      } else {
+        ReturnPos.wKCastlingRights = false;
+        ReturnPos.wQCastlingRights = false;
+      }
+    }
   }
 }
 inline void search(int depth, int currentDepth, Node Node) {

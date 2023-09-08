@@ -79,23 +79,20 @@ inline void getMoves(int piece, int startSquare, int side,
                     !attackedSquares.test(startSquare + castleDirection) &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 2))) {
-              GameState->moves.push_back({-3, 0});
-
+                  GameState->moves.push_back({-3, 0});
                 }
               }
               if (GameState->bQCastlingRights) {
                 if (!attackedSquares.test(startSquare)) {
-                     int castleDirection = (side == WHITE) ? -1 : 1;
-                if (!attackedSquares.test(startSquare) &&
-                    !attackedSquares.test(startSquare + castleDirection) &&
-                    !attackedSquares.test(startSquare +
-                                          (castleDirection * 2)) &&
-                    !attackedSquares.test(startSquare + (castleDirection * 3))  
-                  ) {
-              GameState->moves.push_back({-4, 0});
-
-                }
-               
+                  int castleDirection = (side == WHITE) ? -1 : 1;
+                  if (!attackedSquares.test(startSquare) &&
+                      !attackedSquares.test(startSquare + castleDirection) &&
+                      !attackedSquares.test(startSquare +
+                                            (castleDirection * 2)) &&
+                      !attackedSquares.test(startSquare +
+                                            (castleDirection * 3))) {
+                    GameState->moves.push_back({-4, 0});
+                  }
                 }
               }
             }
@@ -240,8 +237,6 @@ inline void printMoves() {
   }
 }
 inline void generate(int side) {
-  // Update castling rights
-  // TODO insert code
   // Loop through all squares
   for (int square = 0; square < 64;) {
     // Check if its not the opponents piece
