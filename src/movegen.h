@@ -73,6 +73,7 @@ inline void getMoves(int piece, int startSquare, int side,
                 }
               }
               // Castling
+              // Queenside castling rights
               if (GameState->bKCastlingRights) {
                 int castleDirection = (side == WHITE) ? 1 : -1;
                 if (!attackedSquares.test(startSquare) &&
@@ -82,17 +83,18 @@ inline void getMoves(int piece, int startSquare, int side,
                   GameState->moves.push_back({-3, 0});
                 }
               }
+              // Kingside castling rights
               if (GameState->bQCastlingRights) {
-                if (!attackedSquares.test(startSquare)) {
-                  int castleDirection = (side == WHITE) ? -1 : 1;
-                  if (!attackedSquares.test(startSquare) &&
-                      !attackedSquares.test(startSquare + castleDirection) &&
-                      !attackedSquares.test(startSquare +
-                                            (castleDirection * 2)) &&
-                      !attackedSquares.test(startSquare +
-                                            (castleDirection * 3))) {
-                    GameState->moves.push_back({-4, 0});
-                  }
+                // King is not in check
+                int castleDirection = (side == WHITE) ? -1 : 1;
+
+                if (!attackedSquares.test(startSquare) &&
+                    !attackedSquares.test(startSquare + castleDirection) &&
+                    !attackedSquares.test(startSquare +
+                                          (castleDirection * 2)) &&
+                    !attackedSquares.test(startSquare +
+                                          (castleDirection * 3))) {
+                  GameState->moves.push_back({-4, 0});
                 }
               }
             }
