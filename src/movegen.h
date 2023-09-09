@@ -75,9 +75,10 @@ inline void getMoves(int piece, int startSquare, int side,
               // Castling
               // Queenside castling rights
               if (GameState->bKCastlingRights) {
+                //Direciton of the move
                 int castleDirection = (side == WHITE) ? 1 : -1;
-                if (!attackedSquares.test(startSquare) &&
-                    !attackedSquares.test(startSquare + castleDirection) &&
+                if (!attackedSquares.test(startSquare) && GameState->piece[startSquare + castleDirection] == EMPTY&&
+                    !attackedSquares.test(startSquare + castleDirection) && GameState->piece[startSquare + (castleDirection * 2)] == EMPTY &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 2))) {
                   GameState->moves.push_back({-3, 0});
@@ -85,11 +86,13 @@ inline void getMoves(int piece, int startSquare, int side,
               }
               // Kingside castling rights
               if (GameState->bQCastlingRights) {
-                // King is not in check
+                // Direction of the move 
                 int castleDirection = (side == WHITE) ? -1 : 1;
 
                 if (!attackedSquares.test(startSquare) &&
+                    GameState->piece[startSquare + castleDirection] == EMPTY &&
                     !attackedSquares.test(startSquare + castleDirection) &&
+                    GameState->piece[startSquare + (castleDirection * 2)] == EMPTY &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 2)) &&
                     !attackedSquares.test(startSquare +
