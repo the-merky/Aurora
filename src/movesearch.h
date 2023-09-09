@@ -15,17 +15,31 @@ inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
       ReturnPos.wKCastlingRights = false;
       ReturnPos.wQCastlingRights = false;
       if (Move.startSquare == -3) {
-        // KING side
+        ReturnPos.piece[60] = EMPTY;
+        ReturnPos.piece[63] = EMPTY;
+        ReturnPos.piece[62] = KING;
+        ReturnPos.piece[61] = ROOK;
       } else {
-        // QUEEN side
+        ReturnPos.piece[60] = EMPTY;
+        ReturnPos.piece[56] = EMPTY;
+        ReturnPos.piece[58] = KING;
+        ReturnPos.piece[59] = ROOK;
       }
     } else {
       // BLACK castles
-
       if (Move.startSquare == -3) {
         // KING side
+        ReturnPos.piece[4] = EMPTY;
+        ReturnPos.piece[7] = EMPTY;
+        ReturnPos.piece[6] = KING;
+        ReturnPos.piece[5] = ROOK;
+
       } else {
         // QUEEN side
+        ReturnPos.piece[4] = EMPTY;
+        ReturnPos.piece[0] = EMPTY;
+        ReturnPos.piece[2] = KING;
+        ReturnPos.piece[3] = ROOK;
       }
     }
   } else {
