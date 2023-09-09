@@ -157,6 +157,7 @@ inline void getMoves(int piece, int startSquare, int side,
         // Double move
         if (row(startSquare) == doubleFile &&
             GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] ==
+                EMPTY && GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
                 EMPTY &&
             mailbox[mailbox64[startSquare] + 20 * dir] != -1 &&
             !pinnedPieces.test(startSquare)) {
