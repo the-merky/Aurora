@@ -9,13 +9,13 @@ namespace Aurora
   namespace FEN
   {
     // A function to set values
-    void set(int pieceArr[], int colorArr[], int pos, int type, int color)
+    inline void set(int pieceArr[], int colorArr[], int pos, int type, int color)
     {
       pieceArr[pos] = type;
       colorArr[pos] = color;
     };
     // Convert FEN characters to integers
-    void pieceParse(char fenChar, int pieceArr[], int colorArr[], int pos)
+    inline void pieceParse(char fenChar, int pieceArr[], int colorArr[], int pos)
     {
       int type;
       int color;
@@ -79,9 +79,8 @@ namespace Aurora
       set(pieceArr, colorArr, pos, type, color);
     }
     // Convert FEN string to integral board data
-    void parse(std::string fenString, int pieceArr[], int colorArr[])
+    inline void parse(std::string fenString, int pieceArr[], int colorArr[])
     {
-      std::cout << "PARSING...";
       // Loop through string
       int currentSquare = 0;
       for (int i = 0; i < fenString.length();)
@@ -107,7 +106,7 @@ namespace Aurora
       };
     };
     // Display the board state to a terminal
-    void displayBoard(int pieceArr[], int colorArr[])
+    inline void displayBoard(int pieceArr[], int colorArr[])
     {
       std::cout << "BOARD STATE: \n";
       char output;
