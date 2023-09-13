@@ -7,7 +7,8 @@ namespace Aurora {
 class Position {
 public:
   std::vector<Move> moves;
-  std::bitset<64> enpassantPieces;
+  std::bitset<64> wEnpassantPieces;
+  std::bitset<64> bEnpassantPieces; 
   int color[64] = {};
   int piece[64] = {};
   int enemySide;

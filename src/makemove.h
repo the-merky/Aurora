@@ -4,7 +4,7 @@
 #include <iterator>
 #include <ostream>
 #include <stdio.h>
-namespace Aurora {
+namespace Aurora{
 inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
   ReturnPos.copyPosition(Position);
   if (Move.startSquare == -3 || Move.startSquare == -4) {
@@ -47,6 +47,7 @@ inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
     // And on color array
     ReturnPos.color[Move.targetSquare] = Position.color[Move.startSquare];
     ReturnPos.color[Move.startSquare] = EMPTY;
+    // Update catling rights is KING or ROOK move
     if (ReturnPos.piece[Move.targetSquare] == KING) {
       if (ReturnPos.enemySide == BLACK) {
         ReturnPos.wKCastlingRights = false;
@@ -65,6 +66,14 @@ inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
         ReturnPos.wQCastlingRights = false;
       }
     }
-  }
+    // Update enpassant bitboard if pawn does a double move
+    if(ReturnPos.piece[Move.targetSquare] == PAWN && ((Move.targetSquare - 16 == Move.startSquare) || (Move.targetSquare +16 == Move.startSquare))){
+      if(ReturnPos.piece[Move.targetSquare] == BLACK){
+        ReturnPos.bEnpassantPieces.set(Move.targetSquare);
+      } else{
+        ReturnPos.wEnpassantPieces.set(Move.targetSquare);
+      } 
+    }
+  }  
 }
-} // namespace Aurora
+}
