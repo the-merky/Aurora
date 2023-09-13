@@ -1,11 +1,13 @@
 #include "defs.h"
 #include "move.h"
+#include <bitset>
 #include <cstddef>
 #include <vector>
 namespace Aurora {
 class Position {
 public:
   std::vector<Move> moves;
+  std::bitset<64> enpassantPieces;
   int color[64] = {};
   int piece[64] = {};
   int enemySide;
