@@ -164,6 +164,16 @@ inline void getMoves(int piece, int startSquare, int side,
           GameState->moves.push_back(
               {startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
         }
+        //En Passant
+        if(side == WHITE){
+          if(startSquare == GameState->wEnpassantPieces.test(startSquare - 1)){
+            //En passant to right
+            GameState->moves.push_back({-1, dir});
+          } else if(GameState->wEnpassantPieces.test(startSquare + 1)){
+            //En passant to left
+            GameState->moves.push_back({-2, dir});
+          }
+        }
       }
     }
   } else if (slide[piece - 1]) {
