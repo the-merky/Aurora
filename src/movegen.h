@@ -75,10 +75,13 @@ inline void getMoves(int piece, int startSquare, int side,
               // Castling
               // Queenside castling rights
               if (GameState->bKCastlingRights) {
-                //Direciton of the move
+                // Direciton of the move
                 int castleDirection = (side == WHITE) ? 1 : -1;
-                if (!attackedSquares.test(startSquare) && GameState->piece[startSquare + castleDirection] == EMPTY&&
-                    !attackedSquares.test(startSquare + castleDirection) && GameState->piece[startSquare + (castleDirection * 2)] == EMPTY &&
+                if (!attackedSquares.test(startSquare) &&
+                    GameState->piece[startSquare + castleDirection] == EMPTY &&
+                    !attackedSquares.test(startSquare + castleDirection) &&
+                    GameState->piece[startSquare + (castleDirection * 2)] ==
+                        EMPTY &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 2))) {
                   GameState->moves.push_back({-3, 0});
@@ -86,13 +89,14 @@ inline void getMoves(int piece, int startSquare, int side,
               }
               // Kingside castling rights
               if (GameState->bQCastlingRights) {
-                // Direction of the move 
+                // Direction of the move
                 int castleDirection = (side == WHITE) ? -1 : 1;
 
                 if (!attackedSquares.test(startSquare) &&
                     GameState->piece[startSquare + castleDirection] == EMPTY &&
                     !attackedSquares.test(startSquare + castleDirection) &&
-                    GameState->piece[startSquare + (castleDirection * 2)] == EMPTY &&
+                    GameState->piece[startSquare + (castleDirection * 2)] ==
+                        EMPTY &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 2)) &&
                     !attackedSquares.test(startSquare +
@@ -157,20 +161,22 @@ inline void getMoves(int piece, int startSquare, int side,
         // Double move
         if (row(startSquare) == doubleFile &&
             GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] ==
-                EMPTY && GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
+                EMPTY &&
+            GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
                 EMPTY &&
             mailbox[mailbox64[startSquare] + 20 * dir] != -1 &&
             !pinnedPieces.test(startSquare)) {
           GameState->moves.push_back(
               {startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
         }
-        //En Passant
-        if(side == WHITE){
-          if(startSquare == GameState->wEnpassantPieces.test(startSquare - 1)){
-            //En passant to right
+        // En Passant
+        if (side == WHITE) {
+          if (startSquare ==
+              GameState->wEnpassantPieces.test(startSquare - 1)) {
+            // En passant to right
             GameState->moves.push_back({-1, dir});
-          } else if(GameState->wEnpassantPieces.test(startSquare + 1)){
-            //En passant to left
+          } else if (GameState->wEnpassantPieces.test(startSquare + 1)) {
+            // En passant to left
             GameState->moves.push_back({-2, dir});
           }
         }
