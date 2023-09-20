@@ -8,7 +8,7 @@ class Position {
 public:
   std::vector<Move> moves;
   std::bitset<64> wEnpassantPieces;
-  std::bitset<64> bEnpassantPieces; 
+  std::bitset<64> bEnpassantPieces;
   int color[64] = {};
   int piece[64] = {};
   int enemySide;
@@ -27,6 +27,20 @@ public:
     for (int i = 0; i < 64; i++) {
       color[i] = Position.color[i];
       piece[i] = Position.piece[i];
+    }
+    // Copy en passant bitboards
+    if (enemySide == WHITE) {
+      for (int i = 0; i < wEnpassantPieces.size(); i++) {
+        if (Position.wEnpassantPieces.test(i)) {
+          wEnpassantPieces.set(i);
+        }
+      }
+    } else if (enemySide == BLACK) {
+      for (int i = 0; i < bEnpassantPieces.size(); i++) {
+        if (Position.bEnpassantPieces.test(i)) {
+          bEnpassantPieces.set(i);
+        }
+      }
     }
   }
 };
