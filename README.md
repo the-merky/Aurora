@@ -10,15 +10,13 @@
 		<img alt="Activity" src="https://img.shields.io/github/commit-activity/m/ShambuKumar/Aurora?style=for-the-badge&logo=github&color=DDB6F2&logoColor=D9E0EE&labelColor=302D41">
   </a>
 </p>
-Aurora is an open-source chess engine being developed by Shambu Kumar in C++. 
+# Aurora is an open-source chess engine being developed by Shambu Kumar in C++
 
-## Goals :dart:
+## Goals :target:
 
-- **Chess Engine**: Aurora aims to be a powerful and fast chess engine.
-- **Open Source**: The project is open-source, fostering collaboration and allowing developers to contribute, modify, and enhance the engine.
-- **Neural Network**: The engine will use a neural network for evaluation. 
+Aurora aims to be a powerful chess engine focused on speed and accuracy. 
+It is a project to experiment with Neural Network evaluation and efficient Move Search
 ## Development Status :construction:
-
 Please note that the Aurora Chess Engine project is currently a work in progress and not ready for use. Development is ongoing, and the engine is not yet fully functional.
 
 ## Contribution :raised_hands:
