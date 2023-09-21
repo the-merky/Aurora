@@ -12,7 +12,7 @@
 </p>
 # Aurora is an open-source chess engine being developed by Shambu Kumar in C++
 
-## Goals :target:
+## Goals :dart:
 
 Aurora aims to be a powerful chess engine focused on speed and accuracy. 
 It is a project to experiment with Neural Network evaluation and efficient Move Search
