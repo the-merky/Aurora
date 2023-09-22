@@ -1,3 +1,4 @@
+#include "fen.h"
 #include "movesearch.h"
 #include <iostream>
 int main() {
