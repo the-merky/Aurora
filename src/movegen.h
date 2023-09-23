@@ -19,7 +19,7 @@ inline void initializePosition(Position &Position) {
   Algebraic::setGlobalValues(Position);
 }
 //  Get all possible pseudo-legal targetSquares for a piece
-inline void getMoves(int piece, int startSquare, int side,
+inline void getMovesForPiece(int piece, int startSquare, int side,
                      bool attackedSquaresGen) {
   int enemySide = (side == WHITE) ? BLACK : WHITE;
   //  Target square of move
@@ -258,12 +258,12 @@ inline void printMoves() {
               << " , ";
   }
 }
-inline void generate(int side) {
+inline void getMoves(int side) {
   // Loop through all squares
   for (int square = 0; square < 64;) {
     // Check if its not the opponents piece
     if (GameState->color[square] == side) {
-      getMoves(GameState->piece[square], square, side, false);
+      getMovesForPiece(GameState->piece[square], square, side, false);
     };
     square++;
   };
@@ -273,7 +273,7 @@ inline void updateAttackedSquares(int side) {
   for (int square = 0; square < 64;) {
     // Check if its the opponents piece
     if (GameState->color[square] == side) {
-      getMoves(GameState->piece[square], square, side, true);
+      getMovesForPiece(GameState->piece[square], square, side, true);
     };
     square++;
   };
