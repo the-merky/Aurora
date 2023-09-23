@@ -6,22 +6,16 @@
 #include <ostream>
 namespace Aurora {
 namespace MoveGen {
-// Helper variables:
 // Bitboards
 std::bitset<64> attackedSquares;
 std::bitset<64> pinnedPieces;
 std::bitset<64> defendedPieces;
-// Pointer to Position object
-Position *GameState;
-// Functions
-inline void initializePosition(Position &Position) {
-  GameState = &Position;
-  Algebraic::setGlobalValues(Position);
-}
-//  Get all possible pseudo-legal targetSquares for a piece
-inline void getMovesForPiece(int piece, int startSquare, int side,
-                     bool attackedSquaresGen) {
-  int enemySide = (side == WHITE) ? BLACK : WHITE;
+//  Get all possible pseudo-legal moves for a piece
+inline void getMovesForPiece(Position *Position, int startSquare,
+                             bool attackedSquaresGen) {
+  int side = Position->side;
+  int enemySide = (Position->side == WHITE) ? BLACK : WHITE;
+  int piece = Position->piece[startSquare];
   //  Target square of move
   int targetSquare;
   // Ray length
@@ -36,13 +30,13 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
         // If targetSquare is not out of bounds
         if (targetSquare != -1) {
           // Not moving on a square which one's one piece occupies
-          if (GameState->color[targetSquare] != side) {
+          if (Position->color[targetSquare] != side) {
             if (piece == KNIGHT) {
               // Capture
-              if (GameState->color[targetSquare] == enemySide &&
+              if (Position->color[targetSquare] == enemySide &&
                   !attackedSquaresGen && !pinnedPieces.test(startSquare)) {
-                GameState->moves.push_back({startSquare, targetSquare});
-              } else if (GameState->color[targetSquare] == side &&
+                Position->moves.push_back({startSquare, targetSquare});
+              } else if (Position->color[targetSquare] == side &&
                          attackedSquaresGen) {
                 defendedPieces.set(targetSquare);
               }
@@ -52,15 +46,15 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
                   attackedSquares.set(targetSquare);
                 } else {
                   if (!pinnedPieces.test(startSquare)) {
-                    GameState->moves.push_back({startSquare, targetSquare});
+                    Position->moves.push_back({startSquare, targetSquare});
                   }
                 }
               }
             } else if (piece == KING) {
               // Capture
-              if (GameState->color[targetSquare] == enemySide &&
+              if (Position->color[targetSquare] == enemySide &&
                   !attackedSquaresGen && !defendedPieces.test(targetSquare)) {
-                GameState->moves.push_back({startSquare, targetSquare});
+                Position->moves.push_back({startSquare, targetSquare});
               }
               // Move
               else {
@@ -68,45 +62,45 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
                   attackedSquares.set(targetSquare);
                 } else if (!attackedSquares.test(targetSquare) &&
                            !attackedSquaresGen &&
-                           GameState->color[targetSquare] == EMPTY) {
-                  GameState->moves.push_back({startSquare, targetSquare});
+                           Position->color[targetSquare] == EMPTY) {
+                  Position->moves.push_back({startSquare, targetSquare});
                 }
               }
               // Castling
               // Queenside castling rights
-              if (GameState->bKCastlingRights) {
+              if (Position->bKCastlingRights) {
                 // Direciton of the move
                 int castleDirection = (side == WHITE) ? 1 : -1;
                 if (!attackedSquares.test(startSquare) &&
-                    GameState->piece[startSquare + castleDirection] == EMPTY &&
+                    Position->piece[startSquare + castleDirection] == EMPTY &&
                     !attackedSquares.test(startSquare + castleDirection) &&
-                    GameState->piece[startSquare + (castleDirection * 2)] ==
+                    Position->piece[startSquare + (castleDirection * 2)] ==
                         EMPTY &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 2))) {
-                  GameState->moves.push_back({-3, 0});
+                  Position->moves.push_back({-3, 0});
                 }
               }
               // Kingside castling rights
-              if (GameState->bQCastlingRights) {
+              if (Position->bQCastlingRights) {
                 // Direction of the move
                 int castleDirection = (side == WHITE) ? -1 : 1;
 
                 if (!attackedSquares.test(startSquare) &&
-                    GameState->piece[startSquare + castleDirection] == EMPTY &&
+                    Position->piece[startSquare + castleDirection] == EMPTY &&
                     !attackedSquares.test(startSquare + castleDirection) &&
-                    GameState->piece[startSquare + (castleDirection * 2)] ==
+                    Position->piece[startSquare + (castleDirection * 2)] ==
                         EMPTY &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 2)) &&
                     !attackedSquares.test(startSquare +
                                           (castleDirection * 3))) {
-                  GameState->moves.push_back({-4, 0});
+                  Position->moves.push_back({-4, 0});
                 }
               }
             }
           }
-          if (GameState->color[targetSquare] == side && attackedSquaresGen) {
+          if (Position->color[targetSquare] == side && attackedSquaresGen) {
             defendedPieces.set(targetSquare);
           }
         };
@@ -118,16 +112,15 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
       int doubleFile = (side == WHITE) ? 6 : 1;
       // Check validity of attack to the right
       if (mailbox[mailbox64[startSquare] + 9 * dir] != -1) {
-        if (GameState->color[mailbox[mailbox64[startSquare] + 9 * dir]] ==
+        if (Position->color[mailbox[mailbox64[startSquare] + 9 * dir]] ==
             enemySide) {
           if (attackedSquaresGen) {
             attackedSquares.set(targetSquare);
           } else if (!pinnedPieces.test(startSquare)) {
-            GameState->moves.push_back(
+            Position->moves.push_back(
                 {startSquare, mailbox[mailbox64[startSquare] + 9 * dir]});
           }
-        } else if (GameState
-                           ->color[mailbox[mailbox64[startSquare] + 9 * dir]] ==
+        } else if (Position->color[mailbox[mailbox64[startSquare] + 9 * dir]] ==
                        side &&
                    attackedSquaresGen) {
           defendedPieces.set(startSquare + 9 * dir);
@@ -135,16 +128,16 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
       }
       // Check validity of attack to the left
       if (mailbox[mailbox64[startSquare] + 11 * dir] != -1) {
-        if (GameState->color[mailbox[mailbox64[startSquare] + 11 * dir]] ==
+        if (Position->color[mailbox[mailbox64[startSquare] + 11 * dir]] ==
             enemySide) {
           if (attackedSquaresGen) {
             attackedSquares.set(targetSquare);
           } else if (!pinnedPieces.test(startSquare)) {
-            GameState->moves.push_back(
+            Position->moves.push_back(
                 {startSquare, mailbox[mailbox64[startSquare] + 11 * dir]});
           }
-        } else if (GameState->color[mailbox[mailbox64[startSquare] +
-                                            11 * dir]] == side &&
+        } else if (Position->color[mailbox[mailbox64[startSquare] +
+                                           11 * dir]] == side &&
                    attackedSquaresGen) {
           defendedPieces.set(startSquare + 11 * dir);
         }
@@ -152,32 +145,31 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
       if (!attackedSquaresGen) {
         // Move forward
         if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 &&
-            GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
+            Position->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
                 EMPTY &&
             !pinnedPieces.test(startSquare)) {
-          GameState->moves.push_back(
+          Position->moves.push_back(
               {startSquare, mailbox[mailbox64[startSquare] + 10 * dir]});
         }
         // Double move
         if (row(startSquare) == doubleFile &&
-            GameState->color[mailbox[mailbox64[startSquare] + 20 * dir]] ==
+            Position->color[mailbox[mailbox64[startSquare] + 20 * dir]] ==
                 EMPTY &&
-            GameState->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
+            Position->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
                 EMPTY &&
             mailbox[mailbox64[startSquare] + 20 * dir] != -1 &&
             !pinnedPieces.test(startSquare)) {
-          GameState->moves.push_back(
+          Position->moves.push_back(
               {startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
         }
         // En Passant
         if (side == WHITE) {
-          if (startSquare ==
-              GameState->wEnpassantPieces.test(startSquare - 1)) {
+          if (startSquare == Position->wEnpassantPieces.test(startSquare - 1)) {
             // En passant to right
-            GameState->moves.push_back({-1, dir});
-          } else if (GameState->wEnpassantPieces.test(startSquare + 1)) {
+            Position->moves.push_back({-1, dir});
+          } else if (Position->wEnpassantPieces.test(startSquare + 1)) {
             // En passant to left
-            GameState->moves.push_back({-2, dir});
+            Position->moves.push_back({-2, dir});
           }
         }
       }
@@ -201,22 +193,22 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
         while (targetSquare != -1) {
 
           // Not moving on a square which one's one piece occupies
-          if (GameState->color[targetSquare] != side) {
+          if (Position->color[targetSquare] != side) {
             // Capture
-            if (enemySide == GameState->color[targetSquare]) {
+            if (enemySide == Position->color[targetSquare]) {
               if (attackedSquaresGen) {
                 if (ghostPiece < 0) {
                   ghostPiece = targetSquare;
                 } else {
-                  if (!(GameState->color[targetSquare] == side) &&
-                      GameState->piece[targetSquare] == KING) {
+                  if (!(Position->color[targetSquare] == side) &&
+                      Position->piece[targetSquare] == KING) {
                     pinnedPieces.set(ghostPiece);
                   } else {
                     break;
                   }
                 }
               } else if (!pinnedPieces.test(startSquare)) {
-                GameState->moves.push_back({startSquare, targetSquare});
+                Position->moves.push_back({startSquare, targetSquare});
                 break;
               }
             }
@@ -229,10 +221,10 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
                   attackedSquares.set(targetSquare);
                 }
               } else if (!pinnedPieces.test(startSquare)) {
-                GameState->moves.push_back({startSquare, targetSquare});
+                Position->moves.push_back({startSquare, targetSquare});
               }
             }
-          } else if (GameState->color[targetSquare] == side) {
+          } else if (Position->color[targetSquare] == side) {
             if (attackedSquaresGen) {
               defendedPieces.set(targetSquare);
             }
@@ -251,29 +243,30 @@ inline void getMovesForPiece(int piece, int startSquare, int side,
     };
   }
 }
-inline void printMoves() {
-  for (int i = 0; i < GameState->moves.size(); i++) {
-    std::cout << Algebraic::convertToAlgebraic(GameState->moves[i].startSquare,
-                                               GameState->moves[i].targetSquare)
+inline void printMoves(Position *Position) {
+  for (int i = 0; i < Position->moves.size(); i++) {
+    std::cout << Algebraic::convertToAlgebraic(Position->moves[i].startSquare,
+                                               Position->moves[i].targetSquare)
               << " , ";
   }
 }
-inline void getMoves(int side) {
+inline void getMoves(Position *Position) {
   // Loop through all squares
   for (int square = 0; square < 64;) {
     // Check if its not the opponents piece
-    if (GameState->color[square] == side) {
-      getMovesForPiece(GameState->piece[square], square, side, false);
+    if (Position->color[square] == Position->side) {
+      getMovesForPiece(Position, square, false);
     };
     square++;
   };
 };
-inline void updateAttackedSquares(int side) {
+inline void updateAttackedSquares(Position *Position) {
+  int enemySide = (Position->side == WHITE) ? BLACK : WHITE;
   // Loop through all squares
   for (int square = 0; square < 64;) {
     // Check if its the opponents piece
-    if (GameState->color[square] == side) {
-      getMovesForPiece(GameState->piece[square], square, side, true);
+    if (Position->color[square] == enemySide) {
+      getMovesForPiece(Position, square, true);
     };
     square++;
   };
