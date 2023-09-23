@@ -11,7 +11,7 @@ public:
   std::bitset<64> bEnpassantPieces;
   int color[64] = {};
   int piece[64] = {};
-  int enemySide;
+  int side;
   int evalScore;
   bool bQCastlingRights;
   bool bKCastlingRights;
@@ -19,7 +19,7 @@ public:
   bool wKCastlingRights;
   void copyPosition(Position &Position) {
     // Copy bool property and side
-    enemySide = (Position.enemySide = WHITE) ? BLACK : WHITE;
+    side = (Position.side = WHITE) ? BLACK : WHITE;
     bQCastlingRights = Position.bQCastlingRights;
     bKCastlingRights = Position.bKCastlingRights;
     wQCastlingRights = Position.wQCastlingRights;
@@ -29,13 +29,13 @@ public:
       piece[i] = Position.piece[i];
     }
     // Copy en passant bitboards
-    if (enemySide == WHITE) {
+    if (side == WHITE) {
       for (int i = 0; i < wEnpassantPieces.size(); i++) {
         if (Position.wEnpassantPieces.test(i)) {
           wEnpassantPieces.set(i);
         }
       }
-    } else if (enemySide == BLACK) {
+    } else if (side == BLACK) {
       for (int i = 0; i < bEnpassantPieces.size(); i++) {
         if (Position.bEnpassantPieces.test(i)) {
           bEnpassantPieces.set(i);
