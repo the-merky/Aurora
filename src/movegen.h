@@ -10,6 +10,7 @@ namespace MoveGen {
 std::bitset<64> attackedSquares;
 std::bitset<64> pinnedPieces;
 std::bitset<64> defendedPieces;
+// Functions
 //  Get all possible pseudo-legal moves for a piece
 inline void getMovesForPiece(Position *Position, int startSquare,
                              bool attackedSquaresGen) {
@@ -271,5 +272,10 @@ inline void updateAttackedSquares(Position *Position) {
     square++;
   };
 };
+// Main generate function
+inline void generate(Position *Position) {
+    updateAttackedSquares(Position);
+    getMoves(Position); 
+}
 } // namespace MoveGen
 } // namespace Aurora

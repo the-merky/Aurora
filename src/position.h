@@ -9,6 +9,9 @@ public:
   std::vector<Move> moves;
   std::bitset<64> wEnpassantPieces;
   std::bitset<64> bEnpassantPieces;
+  std::bitset<64> attackedSquares;
+  std::bitset<64> pinnedPieces;
+  std::bitset<64> defendedPieces;
   int color[64] = {};
   int piece[64] = {};
   int side;
