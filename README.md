@@ -10,7 +10,8 @@
 		<img alt="Activity" src="https://img.shields.io/github/commit-activity/m/ShambuKumar/Aurora?style=for-the-badge&logo=github&color=DDB6F2&logoColor=D9E0EE&labelColor=302D41">
   </a>
 </p>
-# Aurora is an open-source chess engine being developed by Shambu Kumar in C++
+
+## Aurora is an open-source chess engine being developed by Shambu Kumar in C++
 
 ## Goals :dart:
 
@@ -52,14 +53,16 @@ This section will cover how to chess engine works, and how to use it. This secti
 - **This README**
 - **The MIT license**
 - **An src folder**
-which contains all code -this will be covered in detail in the other section
+which contains all code -this will be covered in detail in a later section
 ###
 ### Program overview
-### The engine code consists of these 3 core parts
-- **Move Generation: **
+### The engine code consists of these 3 main parts
+###
+- **Move Generation:**
 The computer gets all legal moves from a chess position
-- **Move Search: **
+- **Move Search:**
 Create a search tree of positions with a given depth
-- **Evaluation: ** 
+- **Evaluation:**
 Give a chess position an evaluation score based pn which side is more likely to win
+###
 
