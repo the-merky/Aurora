@@ -34,8 +34,8 @@ For any questions or inquiries about the Aurora Chess Engine project, please rea
 Thank you for your interest in Aurora Chess Engine. Stay tuned for future updates! :rocket:
 
 ## Begin worked on right now...
-### Using UCI or making a dedicated GUI
-### Move Search
+### Better Move Search
+### Better Move Generation
 ### Special moves and rules
 ###
  - **En passant**
