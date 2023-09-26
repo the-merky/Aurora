@@ -10,8 +10,14 @@ int main() {
   std::string fen3 = "6k1/8/Pp6/8/8/8/1K6/8";
   Position Position;
   Position.side = WHITE;
-  //fen1
+  // fen 1 test
+  std::cout << "MOVEGEN TESTS";
   FEN::parse(fen1, Position.piece, Position.color);
   MoveGen::generate(&Position);
+  if(Position.moves.size() == 20){
+    std::cout << "[FEN 1] PASSED";
+  } else {
+    std::cout << "[FEN 1] FAILED due to incorrect number of moves generated";
+  }
   return 0;
 }
