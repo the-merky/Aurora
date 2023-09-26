@@ -1,6 +1,7 @@
-#include "algebraic.h"
+// #include "algebraic.h"
 #include "defs.h"
 #include "movegen-helpers.h"
+#include "position.h"
 #include <bitset>
 #include <iostream>
 #include <ostream>
@@ -244,6 +245,7 @@ inline void getMovesForPiece(Position *Position, int startSquare,
     };
   }
 }
+/*
 inline void printMoves(Position *Position) {
   for (int i = 0; i < Position->moves.size(); i++) {
     std::cout << Algebraic::convertToAlgebraic(Position->moves[i].startSquare,
@@ -251,6 +253,7 @@ inline void printMoves(Position *Position) {
               << " , ";
   }
 }
+*/
 inline void getMoves(Position *Position) {
   // Loop through all squares
   for (int square = 0; square < 64;) {
@@ -274,8 +277,8 @@ inline void updateAttackedSquares(Position *Position) {
 };
 // Main generate function
 inline void generate(Position *Position) {
-    updateAttackedSquares(Position);
-    getMoves(Position); 
+  updateAttackedSquares(Position);
+  getMoves(Position);
 }
 } // namespace MoveGen
 } // namespace Aurora
