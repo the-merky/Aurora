@@ -1,6 +1,17 @@
 #include "fen.h"
 #include "movegen.h"
 #include <iostream>
+void resetPosition(Aurora::Position Position) {
+  Position.attackedSquares.reset();
+  Position.defendedPieces.reset();
+  Position.pinnedPieces.reset();
+  Position.bEnpassantPieces.reset();
+  Position.wEnpassantPieces.reset();
+  Position.bQCastlingRights = true;
+  Position.wQCastlingRights = true;
+  Position.bKCastlingRights = true;
+  Position.wKCastlingRights = true;
+}
 int main() {
   using namespace Aurora;
   // Tests
@@ -11,13 +22,14 @@ int main() {
   Position Position;
   Position.side = WHITE;
   // fen 1 test
-  std::cout << "MOVEGEN TESTS";
+  std::cout << "MOVEGEN TESTS\n";
   FEN::parse(fen1, Position.piece, Position.color);
   MoveGen::generate(&Position);
-  if(Position.moves.size() == 20){
-    std::cout << "[FEN 1] PASSED";
+  if (Position.moves.size() == 20) {
+    std::cout << "✔️[[ FEN 1 ] PASSED\n";
   } else {
-    std::cout << "[FEN 1] FAILED due to incorrect number of moves generated";
+    std::cout
+        << "✖️[[ FEN 1 ] FAILED due to incorrect number of moves generated\n";
   }
   return 0;
 }
