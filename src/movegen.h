@@ -7,10 +7,6 @@
 #include <ostream>
 namespace Aurora {
 namespace MoveGen {
-// Bitboards
-std::bitset<64> attackedSquares;
-std::bitset<64> pinnedPieces;
-std::bitset<64> defendedPieces;
 // Functions
 //  Get all possible pseudo-legal moves for a piece
 inline void getMovesForPiece(Position *Position, int startSquare,
@@ -18,6 +14,9 @@ inline void getMovesForPiece(Position *Position, int startSquare,
   int side = Position->side;
   int enemySide = (Position->side == WHITE) ? BLACK : WHITE;
   int piece = Position->piece[startSquare];
+  std::bitset<64> *attackedSquares = &Position->attackedSquares;
+  std::bitset<64> *defendedPieces = &Position->defendedPieces;
+  std::bitset<64> *pinnedPieces = &Position->pinnedPieces;
   //  Target square of move
   int targetSquare;
   // Ray length
@@ -36,18 +35,18 @@ inline void getMovesForPiece(Position *Position, int startSquare,
             if (piece == KNIGHT) {
               // Capture
               if (Position->color[targetSquare] == enemySide &&
-                  !attackedSquaresGen && !pinnedPieces.test(startSquare)) {
+                  !attackedSquaresGen && !pinnedPieces->test(startSquare)) {
                 Position->moves.push_back({startSquare, targetSquare});
               } else if (Position->color[targetSquare] == side &&
                          attackedSquaresGen) {
-                defendedPieces.set(targetSquare);
+                defendedPieces->set(targetSquare);
               }
               // Move
               else {
                 if (attackedSquaresGen) {
-                  attackedSquares.set(targetSquare);
+                  attackedSquares->set(targetSquare);
                 } else {
-                  if (!pinnedPieces.test(startSquare)) {
+                  if (!pinnedPieces->test(startSquare)) {
                     Position->moves.push_back({startSquare, targetSquare});
                   }
                 }
@@ -55,14 +54,14 @@ inline void getMovesForPiece(Position *Position, int startSquare,
             } else if (piece == KING) {
               // Capture
               if (Position->color[targetSquare] == enemySide &&
-                  !attackedSquaresGen && !defendedPieces.test(targetSquare)) {
+                  !attackedSquaresGen && !defendedPieces->test(targetSquare)) {
                 Position->moves.push_back({startSquare, targetSquare});
               }
               // Move
               else {
                 if (attackedSquaresGen) {
-                  attackedSquares.set(targetSquare);
-                } else if (!attackedSquares.test(targetSquare) &&
+                  attackedSquares->set(targetSquare);
+                } else if (!attackedSquares->test(targetSquare) &&
                            !attackedSquaresGen &&
                            Position->color[targetSquare] == EMPTY) {
                   Position->moves.push_back({startSquare, targetSquare});
@@ -73,12 +72,12 @@ inline void getMovesForPiece(Position *Position, int startSquare,
               if (Position->bKCastlingRights) {
                 // Direciton of the move
                 int castleDirection = (side == WHITE) ? 1 : -1;
-                if (!attackedSquares.test(startSquare) &&
+                if (!attackedSquares->test(startSquare) &&
                     Position->piece[startSquare + castleDirection] == EMPTY &&
-                    !attackedSquares.test(startSquare + castleDirection) &&
+                    !attackedSquares->test(startSquare + castleDirection) &&
                     Position->piece[startSquare + (castleDirection * 2)] ==
                         EMPTY &&
-                    !attackedSquares.test(startSquare +
+                    !attackedSquares->test(startSquare +
                                           (castleDirection * 2))) {
                   Position->moves.push_back({-3, 0});
                 }
@@ -88,14 +87,14 @@ inline void getMovesForPiece(Position *Position, int startSquare,
                 // Direction of the move
                 int castleDirection = (side == WHITE) ? -1 : 1;
 
-                if (!attackedSquares.test(startSquare) &&
+                if (!attackedSquares->test(startSquare) &&
                     Position->piece[startSquare + castleDirection] == EMPTY &&
-                    !attackedSquares.test(startSquare + castleDirection) &&
+                    !attackedSquares->test(startSquare + castleDirection) &&
                     Position->piece[startSquare + (castleDirection * 2)] ==
                         EMPTY &&
-                    !attackedSquares.test(startSquare +
+                    !attackedSquares->test(startSquare +
                                           (castleDirection * 2)) &&
-                    !attackedSquares.test(startSquare +
+                    !attackedSquares->test(startSquare +
                                           (castleDirection * 3))) {
                   Position->moves.push_back({-4, 0});
                 }
@@ -103,7 +102,7 @@ inline void getMovesForPiece(Position *Position, int startSquare,
             }
           }
           if (Position->color[targetSquare] == side && attackedSquaresGen) {
-            defendedPieces.set(targetSquare);
+            defendedPieces->set(targetSquare);
           }
         };
         i++;
@@ -117,15 +116,15 @@ inline void getMovesForPiece(Position *Position, int startSquare,
         if (Position->color[mailbox[mailbox64[startSquare] + 9 * dir]] ==
             enemySide) {
           if (attackedSquaresGen) {
-            attackedSquares.set(targetSquare);
-          } else if (!pinnedPieces.test(startSquare)) {
+            attackedSquares->set(targetSquare);
+          } else if (!pinnedPieces->test(startSquare)) {
             Position->moves.push_back(
                 {startSquare, mailbox[mailbox64[startSquare] + 9 * dir]});
           }
         } else if (Position->color[mailbox[mailbox64[startSquare] + 9 * dir]] ==
                        side &&
                    attackedSquaresGen) {
-          defendedPieces.set(startSquare + 9 * dir);
+          defendedPieces->set(startSquare + 9 * dir);
         }
       }
       // Check validity of attack to the left
@@ -133,15 +132,15 @@ inline void getMovesForPiece(Position *Position, int startSquare,
         if (Position->color[mailbox[mailbox64[startSquare] + 11 * dir]] ==
             enemySide) {
           if (attackedSquaresGen) {
-            attackedSquares.set(targetSquare);
-          } else if (!pinnedPieces.test(startSquare)) {
+            attackedSquares->set(targetSquare);
+          } else if (!pinnedPieces->test(startSquare)) {
             Position->moves.push_back(
                 {startSquare, mailbox[mailbox64[startSquare] + 11 * dir]});
           }
         } else if (Position->color[mailbox[mailbox64[startSquare] +
                                            11 * dir]] == side &&
                    attackedSquaresGen) {
-          defendedPieces.set(startSquare + 11 * dir);
+          defendedPieces->set(startSquare + 11 * dir);
         }
       }
       if (!attackedSquaresGen) {
@@ -149,7 +148,7 @@ inline void getMovesForPiece(Position *Position, int startSquare,
         if (mailbox[mailbox64[startSquare] + 10 * dir] != -1 &&
             Position->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
                 EMPTY &&
-            !pinnedPieces.test(startSquare)) {
+            !pinnedPieces->test(startSquare)) {
           Position->moves.push_back(
               {startSquare, mailbox[mailbox64[startSquare] + 10 * dir]});
         }
@@ -160,7 +159,7 @@ inline void getMovesForPiece(Position *Position, int startSquare,
             Position->color[mailbox[mailbox64[startSquare] + 10 * dir]] ==
                 EMPTY &&
             mailbox[mailbox64[startSquare] + 20 * dir] != -1 &&
-            !pinnedPieces.test(startSquare)) {
+            !pinnedPieces->test(startSquare)) {
           Position->moves.push_back(
               {startSquare, mailbox[mailbox64[startSquare] + 20 * dir]});
         }
@@ -204,12 +203,12 @@ inline void getMovesForPiece(Position *Position, int startSquare,
                 } else {
                   if (!(Position->color[targetSquare] == side) &&
                       Position->piece[targetSquare] == KING) {
-                    pinnedPieces.set(ghostPiece);
+                    pinnedPieces->set(ghostPiece);
                   } else {
                     break;
                   }
                 }
-              } else if (!pinnedPieces.test(startSquare)) {
+              } else if (!pinnedPieces->test(startSquare)) {
                 Position->moves.push_back({startSquare, targetSquare});
                 break;
               }
@@ -220,15 +219,15 @@ inline void getMovesForPiece(Position *Position, int startSquare,
               if (attackedSquaresGen) {
 
                 if (ghostPiece < 0) {
-                  attackedSquares.set(targetSquare);
+                  attackedSquares->set(targetSquare);
                 }
-              } else if (!pinnedPieces.test(startSquare)) {
+              } else if (!pinnedPieces->test(startSquare)) {
                 Position->moves.push_back({startSquare, targetSquare});
               }
             }
           } else if (Position->color[targetSquare] == side) {
             if (attackedSquaresGen) {
-              defendedPieces.set(targetSquare);
+              defendedPieces->set(targetSquare);
             }
             break;
           }
