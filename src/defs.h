@@ -9,6 +9,11 @@ namespace Aurora
 #define WHITE 8
 #define BLACK 16
 #define EMPTY 0
+#define PAWNVAL 1
+#define KNIGHTVAL 3
+#define BISHOPVAL 3
+#define ROOKVAL 5
+#define QUEENVAL 9
 #define RENPASSANT -1
 #define LENPASSANT -2
 #define KCASTLING -3

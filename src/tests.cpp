@@ -1,5 +1,5 @@
 #include "fen.h"
-#include "movegen.h"
+#include "eval.h"
 #include <iostream>
 void resetPosition(Aurora::Position Position) {
   Position.attackedSquares.reset();
@@ -26,10 +26,34 @@ int main() {
   FEN::parse(fen1, Position.piece, Position.color);
   MoveGen::generate(&Position);
   if (Position.moves.size() == 20) {
-    std::cout << "✔️[[ FEN 1 ] PASSED\n";
+    std::cout << "✔️[[ FEN 1 - Starting position] PASSED\n";
   } else {
     std::cout
         << "✖️[[ FEN 1 ] FAILED due to incorrect number of moves generated\n";
   }
+  
+  // fen 2 test
+  resetPosition(Position);
+   FEN::parse(fen2, Position.piece, Position.color); 
+  if (true) {
+    std::cout << "✔️[[ FEN 2 - Generic position] PASSED\n";
+  } else {
+    std::cout
+        << "✖️[[ FEN 2 ] FAILED due to incorrect number of moves generated\n";
+  }
+
+  // fen 3 test
+ resetPosition(Position);
+   FEN::parse(fen1, Position.piece, Position.color);
+  MoveGen::generate(&Position);
+  if (Position.moves.size() == 20) {
+    std::cout << "✔️[[ FEN 3 - Tricky positon] PASSED\n";
+  } else {
+    std::cout
+        << "✖️[[ FEN 3 ] FAILED due to incorrect number of moves generated\n";
+  }
+  
+  std::cout << "EVAL TEST\n";
+  std:: cout << Eval(&Position) << std::endl; 
   return 0;
 }
