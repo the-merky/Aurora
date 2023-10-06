@@ -8,7 +8,7 @@ namespace Aurora{
 inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
   ReturnPos.copyPosition(Position);
   if (Move.startSquare == -3 || Move.startSquare == -4) {
-    if (Position.enemySide == BLACK) {
+    if (Position.side == WHITE) {
       // WHITE castles
       ReturnPos.wKCastlingRights = false;
       ReturnPos.wQCastlingRights = false;
@@ -49,7 +49,7 @@ inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
     ReturnPos.color[Move.startSquare] = EMPTY;
     // Update catling rights is KING or ROOK move
     if (ReturnPos.piece[Move.targetSquare] == KING) {
-      if (ReturnPos.enemySide == BLACK) {
+      if (ReturnPos.side == WHITE) {
         ReturnPos.wKCastlingRights = false;
         ReturnPos.wQCastlingRights = false;
       } else {
@@ -58,7 +58,7 @@ inline void makeMove(Move Move, Position Position, class Position &ReturnPos) {
       }
     }
     if (ReturnPos.piece[Move.targetSquare] == ROOK) {
-      if (ReturnPos.enemySide == BLACK) {
+      if (ReturnPos.side == WHITE) {
         ReturnPos.wKCastlingRights = false;
         ReturnPos.wQCastlingRights = false;
       } else {
