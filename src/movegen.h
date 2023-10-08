@@ -1,7 +1,7 @@
 // #include "algebraic.h"
 #include "defs.h"
 #include "movegen-helpers.h"
-#include "position.h"
+#include "node.h"
 #include <bitset>
 #include <iostream>
 #include <ostream>
