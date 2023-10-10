@@ -1,7 +1,6 @@
-// #include "algebraic.h"
+#include "algebraic.h"
 #include "defs.h"
 #include "movegen-helpers.h"
-#include "node.h"
 #include <bitset>
 #include <iostream>
 #include <ostream>
@@ -244,15 +243,12 @@ inline void getMovesForPiece(Position *Position, int startSquare,
     };
   }
 }
-/*
 inline void printMoves(Position *Position) {
   for (int i = 0; i < Position->moves.size(); i++) {
-    std::cout << Algebraic::convertToAlgebraic(Position->moves[i].startSquare,
-                                               Position->moves[i].targetSquare)
+    std::cout << Algebraic::convertToAlgebraic(Position, Position->moves[i])
               << " , ";
   }
 }
-*/
 inline void getMoves(Position *Position) {
   // Loop through all squares
   for (int square = 0; square < 64;) {
