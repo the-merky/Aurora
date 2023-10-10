@@ -52,7 +52,7 @@ int main() {
     std::cout
         << "✖️[[ FEN 3 ] FAILED due to incorrect number of moves generated\n";
   }
-  
+ 
   std::cout << "EVAL TEST\n";
   std:: cout << Eval(&Position) << std::endl; 
   return 0;

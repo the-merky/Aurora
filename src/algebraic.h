@@ -4,9 +4,7 @@
 namespace Aurora {
 namespace Algebraic {
 // Namespace for algebraic notation to Aurora-Int parsing
-Position *GameState;
-// A function to set values
-inline void setGlobalValues(Position &Position) { GameState = &Position; }
+
 // Convert a sqaure to algebraic notation
 inline std::string toAlgebraicSquare(int square) {
   std::string output;
@@ -75,25 +73,25 @@ inline char pieceToChar(int piece, int color) {
   }
   return pieceChar;
 }
-inline std::string convertToAlgebraic(int position, int move) {
+inline std::string convertToAlgebraic(Position *Position, Move Move) {
   // Starting square (with) piece
   std::string algebricMove = "";
-  if (GameState->piece[position] == PAWN) {
-    algebricMove += toAlgebraicSquare(position);
+  if (Position->piece[Move.startSquare] == PAWN) {
+    algebricMove += toAlgebraicSquare(Move.startSquare);
   } else {
     algebricMove +=
-        pieceToChar(GameState->piece[position], GameState->color[position]);
-    algebricMove += toAlgebraicSquare(position);
+        pieceToChar(Position->piece[Move.startSquare], Position->color[Move.startSquare]);
+    algebricMove += toAlgebraicSquare(Move.startSquare);
   };
   // Move with capture
-  if (GameState->color[move] == GameState->enemySide) {
+  if (Position->color[Move.targetSquare] == !Position->side || EMPTY) {
     algebricMove += "x";
-    algebricMove += toAlgebraicSquare(move);
+    algebricMove += toAlgebraicSquare(Move.targetSquare);
   }
   // Move without capture
-  else if (GameState->color[move] == EMPTY) {
+  else if (Position->color[Move.targetSquare] == EMPTY) {
     algebricMove += "-";
-    algebricMove += toAlgebraicSquare(move);
+    algebricMove += toAlgebraicSquare(Move.targetSquare);
   };
   return algebricMove;
 };
