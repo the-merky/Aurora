@@ -11,6 +11,10 @@ void resetPosition(Aurora::Position Position) {
   Position.wQCastlingRights = true;
   Position.bKCastlingRights = true;
   Position.wKCastlingRights = true;
+  for(int i=0; i < 64; i ++){
+    Position.color[i] = 0;
+    Position.piece[i] = 0;
+  }
 }
 int main() {
   using namespace Aurora;
@@ -31,7 +35,6 @@ int main() {
     std::cout
         << "✖️[[ FEN 1 ] FAILED due to incorrect number of moves generated\n";
   }
-  
   // fen 2 test
   resetPosition(Position);
    FEN::parse(fen2, Position.piece, Position.color); 
@@ -41,10 +44,9 @@ int main() {
     std::cout
         << "✖️[[ FEN 2 ] FAILED due to incorrect number of moves generated\n";
   }
-
   // fen 3 test
  resetPosition(Position);
-   FEN::parse(fen1, Position.piece, Position.color);
+   FEN::parse(fen3, Position.piece, Position.color);
   MoveGen::generate(&Position);
   if (Position.moves.size() == 20) {
     std::cout << "✔️[[ FEN 3 - Tricky positon] PASSED\n";
@@ -52,7 +54,7 @@ int main() {
     std::cout
         << "✖️[[ FEN 3 ] FAILED due to incorrect number of moves generated\n";
   }
- 
+  MoveGen::printMoves(&Position); 
   std::cout << "EVAL TEST\n";
   std:: cout << Eval(&Position) << std::endl; 
   return 0;

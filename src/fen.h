@@ -152,6 +152,7 @@ namespace Aurora
         std::cout << output << " ";
         i++;
       }
+  std::cout << std::endl;
     };
   }
 }
