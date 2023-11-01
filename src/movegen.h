@@ -69,7 +69,7 @@ inline void getMovesForPiece(Position *Position, int startSquare,
               // Castling
               // Queenside castling rights
               if (Position->bKCastlingRights) {
-                // Direciton of the move
+                // Direction of the move
                 int castleDirection = (side == WHITE) ? 1 : -1;
                 if (!attackedSquares->test(startSquare) &&
                     Position->piece[startSquare + castleDirection] == EMPTY &&
@@ -176,13 +176,13 @@ inline void getMovesForPiece(Position *Position, int startSquare,
     }
   } else if (slide[piece - 1]) {
     // It's a sliding piece
-    // Loop thorugh all offsets
+    // Loop through all offsets
     for (int i = 0; i < 8;) {
       // Valid Offset
       if (offset[piece - 1][i] != 0) {
         // Reset range
         range = 1;
-        // Calculate the target square(for moving) by multplying the offset by
+        // Calculate the target square(for moving) by multiplying the offset by
         // the range and passing it into the mailbox array
         targetSquare =
             mailbox[mailbox64[startSquare] + offset[piece - 1][i] * range];
