@@ -7,8 +7,4 @@ set(source_dir "${PROJECT_SOURCE_DIR}/src")
 file(GLOB source_files "${source_dir}/*.cpp")
 
 # Add executable target with source files listed in SOURCE_FILES variable
-add_executable(Aurora ${source_files}
-        src/algebraic.h
-        src/defs.h
-        src/eval.h
-        src/movesearch.h)
+add_executable(Aurora src/main.cpp)
