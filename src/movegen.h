@@ -252,7 +252,7 @@ inline void printMoves(Position *Position) {
 inline void getMoves(Position *Position) {
   // Loop through all squares
   for (int square = 0; square < 64;) {
-    // Check if its not the opponents piece
+    // Check if it's not the opponents piece
     if (Position->color[square] == Position->side) {
       getMovesForPiece(Position, square, false);
     };
@@ -263,7 +263,7 @@ inline void updateAttackedSquares(Position *Position) {
   int enemySide = (Position->side == WHITE) ? BLACK : WHITE;
   // Loop through all squares
   for (int square = 0; square < 64;) {
-    // Check if its the opponents piece
+    // Check if it's the opponents piece
     if (Position->color[square] == enemySide) {
       getMovesForPiece(Position, square, true);
     };

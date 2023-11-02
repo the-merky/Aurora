@@ -49,7 +49,7 @@ int main() {
    FEN::parse(fen3, Position.piece, Position.color);
   MoveGen::generate(&Position);
   if (Position.moves.size() == 20) {
-    std::cout << "✔️[[ FEN 3 - Tricky positon] PASSED\n";
+    std::cout << "✔️[[ FEN 3 - Tricky position] PASSED\n";
   } else {
     std::cout
         << "✖️[[ FEN 3 ] FAILED due to incorrect number of moves generated\n";
@@ -57,5 +57,9 @@ int main() {
   MoveGen::printMoves(&Position); 
   std::cout << "EVAL TEST\n";
   std:: cout << Eval(&Position) << std::endl; 
+  // fen 4 test
+  // TODO En Passant Test
+  FEN::parse("8 / 8 / 1Pp5 / 8 / 8 / 8 / 8 / 8", Position.piece, Position.color);
+  MoveGen::generate(&Position);
   return 0;
 }

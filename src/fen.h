@@ -13,7 +13,7 @@ namespace Aurora
     {
       pieceArr[pos] = type;
       colorArr[pos] = color;
-    };
+    }
     // Convert FEN characters to integers
     inline void pieceParse(char fenChar, int pieceArr[], int colorArr[], int pos)
     {
@@ -75,7 +75,7 @@ namespace Aurora
         {
           type = KING;
         }
-      };
+      }
       set(pieceArr, colorArr, pos, type, color);
     }
     // Convert FEN string to integral board data
@@ -103,10 +103,10 @@ namespace Aurora
         {
           i++;
         }
-      };
-    };
+      }
+    }
     // Display the board state to a terminal
-    inline void displayBoard(int pieceArr[], int colorArr[])
+    inline void displayBoard(const int pieceArr[], const int colorArr[])
     {
       std::cout << "BOARD STATE: \n";
       char output;
@@ -143,16 +143,16 @@ namespace Aurora
         if (colorArr[i] == WHITE)
         {
           output = toupper(output);
-        };
-        // Make a new line if already eight charcters were printed in the current one
+        }
+        // Make a new line if already eight characters were printed in the current one
         if (i % 8 == 0)
         {
           std::cout << std::endl;
-        };
+        }
         std::cout << output << " ";
         i++;
       }
   std::cout << std::endl;
-    };
+    }
   }
 }
